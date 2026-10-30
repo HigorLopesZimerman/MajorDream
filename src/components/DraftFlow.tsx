@@ -32,18 +32,23 @@ export const DraftFlow: React.FC<DraftFlowProps> = ({ onCompleteDraft }) => {
   // Draft stages: 'roulette' -> 'selection' -> 'reveal_results'
   const [draftStage, setDraftStage] = useState<'roulette' | 'selection' | 'reveal_results'>('roulette');
   const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
+  const [drawnTeamIds, setDrawnTeamIds] = useState<string[]>([]);
   const [currentDrawnTeam, setCurrentDrawnTeam] = useState<HistoricalTeam | null>(null);
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const [rerollsLeft, setRerollsLeft] = useState<number>(2); // 2 chances de re-roll
   const [teamName] = useState<string>('Meu Time');
 
-  // Pool of available teams for drafting
+  // Pool of available teams for drafting (never repeat a team already drawn in this draft session)
   const availableTeams = HISTORICAL_TEAMS.filter(team => {
-    const unpickedCount = team.roster.filter(p => !selectedPlayers.some(sp => sp.nickname.toLowerCase() === p.nickname.toLowerCase())).length;
+    if (drawnTeamIds.includes(team.id)) return false;
+    const unpickedCount = team.roster.filter(
+      p => !selectedPlayers.some(sp => sp.nickname.toLowerCase() === p.nickname.toLowerCase())
+    ).length;
     return unpickedCount > 0;
   });
 
   const handleTeamDrawn = (team: HistoricalTeam) => {
+    setDrawnTeamIds(prev => (prev.includes(team.id) ? prev : [...prev, team.id]));
     setCurrentDrawnTeam(team);
     setDraftStage('selection');
   };
@@ -75,6 +80,7 @@ export const DraftFlow: React.FC<DraftFlowProps> = ({ onCompleteDraft }) => {
     sound.playClick();
     resetDraftMapSession();
     setSelectedPlayers([]);
+    setDrawnTeamIds([]);
     setCurrentDrawnTeam(null);
     setIsDrawing(false);
     setRerollsLeft(2);
