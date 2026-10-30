@@ -31,12 +31,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
 
   const activeTeam: HistoricalTeam = HISTORICAL_TEAMS[activeIndex] || HISTORICAL_TEAMS[0];
 
-  // Auto-cycle spotlight team every 4.5s unless paused by user
+  // Auto-cycle spotlight team every 7s unless paused by user
   useEffect(() => {
     if (!isAutoCycling || HISTORICAL_TEAMS.length <= 1) return;
     const timer = setInterval(() => {
       setActiveIndex(prev => (prev + 1) % HISTORICAL_TEAMS.length);
-    }, 4500);
+    }, 7000);
     return () => clearInterval(timer);
   }, [isAutoCycling]);
 

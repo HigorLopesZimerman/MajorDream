@@ -104,13 +104,13 @@ body {
 .marquee-track-left {
   display: flex;
   width: max-content;
-  animation: marquee-left 48s linear infinite;
+  animation: marquee-left 140s linear infinite;
 }
 
 .marquee-track-right {
   display: flex;
   width: max-content;
-  animation: marquee-right 48s linear infinite;
+  animation: marquee-right 140s linear infinite;
 }
 
 .marquee-group:hover .marquee-track-left,
