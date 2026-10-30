@@ -81,3 +81,46 @@ body {
   border-color: var(--color-contender);
   box-shadow: 0 0 15px -3px var(--color-contender-glow);
 }
+
+/* Infinite marquee animations for Available Teams showcase */
+@keyframes marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee-track-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 48s linear infinite;
+}
+
+.marquee-track-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 48s linear infinite;
+}
+
+.marquee-group:hover .marquee-track-left,
+.marquee-group:hover .marquee-track-right {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track-left,
+  .marquee-track-right {
+    animation: none;
+  }
+}
