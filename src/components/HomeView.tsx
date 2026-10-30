@@ -403,9 +403,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                         );
                       })}
                     </div>
-                    <p className="mt-2.5 text-[10px] text-cs-muted leading-relaxed">
-                      AIM = Mira · IMP = Impacto · CLU = Clutch · CON = Consistência · GS = Game Sense · UTI = Utilitários · MOV = Movimentação
-                    </p>
+                    <div className="mt-2.5 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[10px] text-cs-muted">
+                      <span>AIM: Mira</span>
+                      <span>IMP: Impacto</span>
+                      <span>CLU: Clutch</span>
+                      <span>CON: Consistência</span>
+                      <span>GS: Game Sense</span>
+                      <span>UTI: Utilitários</span>
+                      <span>MOV: Movimentação</span>
+                    </div>
                   </div>
                 </div>
               )}
