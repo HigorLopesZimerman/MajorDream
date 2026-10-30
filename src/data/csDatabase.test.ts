@@ -49,6 +49,10 @@ describe('Major Dream - CS Database Validation', () => {
         expect(player.nickname.trim().length).toBeGreaterThan(0);
         expect(player.country).toBeDefined();
         expect(player.role).toBeDefined();
+        expect(player.attributes).toBeDefined();
+        const { aim, imp, clu, con, gs, uti, mov } = player.attributes;
+        const expectedOvr = Math.round((aim + imp + clu + con + gs + uti + mov) / 7);
+        expect(player.ovr).toBe(expectedOvr);
         expect(player.ovr).toBeGreaterThanOrEqual(70);
         expect(player.ovr).toBeLessThanOrEqual(99);
       }

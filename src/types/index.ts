@@ -1,11 +1,22 @@
 export type Role = 'igl' | 'awp' | 'entry' | 'rifler' | 'lurker' | 'support';
 
+export interface PlayerAttributes {
+  aim: number;            // AIM (Mira)
+  imp: number;            // IMP (Impacto)
+  clu: number;            // CLU (Clutch)
+  con: number;            // CON (Consistência)
+  gs: number;             // GS (Game Sense)
+  uti: number;            // UTI (Utility)
+  mov: number;            // MOV (Movement)
+}
+
 export interface Player {
   id: string;             // e.g. "coldzera-2016"
   nickname: string;       // "coldzera"
   country: string;        // "BR", "UA", "DK", "FR", "BA", etc.
   role: Role;
-  ovr: number;            // 60-99
+  attributes: PlayerAttributes;
+  ovr: number;            // Calculated average of the 7 attributes (60-99)
   teamId: string;         // "lg-2016"
   teamName: string;       // "Luminosity Gaming"
 }

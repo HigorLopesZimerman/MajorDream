@@ -1,6 +1,22 @@
-import { HistoricalTeam } from '../types';
+import { HistoricalTeam, Player, PlayerAttributes } from '../types';
 
-export const CS_DATABASE: HistoricalTeam[] = [
+export function computePlayerOvr(attr: PlayerAttributes): number {
+  return Math.round(
+    (attr.aim + attr.imp + attr.clu + attr.con + attr.gs + attr.uti + attr.mov) / 7
+  );
+}
+
+interface RawTeam {
+  id: string;
+  name: string;
+  shortName: string;
+  year: number;
+  logoText: string;
+  accentColor: string;
+  roster: Array<Omit<Player, 'ovr'> & { ovr?: number }>;
+}
+
+const RAW_CS_DATABASE: RawTeam[] = [
   // 1. Luminosity Gaming (2016)
   {
     id: "lg-2016",
@@ -10,11 +26,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "LG",
     accentColor: "#00A3E0",
     roster: [
-      { id: "fallen-2016", nickname: "FalleN", country: "BR", role: "igl", ovr: 93, teamId: "lg-2016", teamName: "Luminosity Gaming" },
-      { id: "coldzera-2016", nickname: "coldzera", country: "BR", role: "lurker", ovr: 98, teamId: "lg-2016", teamName: "Luminosity Gaming" },
-      { id: "fer-2016", nickname: "fer", country: "BR", role: "entry", ovr: 92, teamId: "lg-2016", teamName: "Luminosity Gaming" },
-      { id: "fnx-2016", nickname: "fnx", country: "BR", role: "support", ovr: 88, teamId: "lg-2016", teamName: "Luminosity Gaming" },
-      { id: "taco-2016", nickname: "TACO", country: "BR", role: "entry", ovr: 84, teamId: "lg-2016", teamName: "Luminosity Gaming" }
+      {
+        id: "fallen-2016", nickname: "FalleN", country: "BR", role: "igl", teamId: "lg-2016", teamName: "Luminosity Gaming",
+        attributes: { aim: 88, imp: 90, clu: 92, con: 94, gs: 99, uti: 98, mov: 90 }
+      },
+      {
+        id: "coldzera-2016", nickname: "coldzera", country: "BR", role: "lurker", teamId: "lg-2016", teamName: "Luminosity Gaming",
+        attributes: { aim: 99, imp: 99, clu: 99, con: 99, gs: 99, uti: 92, mov: 93 }
+      },
+      {
+        id: "fer-2016", nickname: "fer", country: "BR", role: "entry", teamId: "lg-2016", teamName: "Luminosity Gaming",
+        attributes: { aim: 94, imp: 96, clu: 88, con: 89, gs: 90, uti: 92, mov: 95 }
+      },
+      {
+        id: "fnx-2016", nickname: "fnx", country: "BR", role: "support", teamId: "lg-2016", teamName: "Luminosity Gaming",
+        attributes: { aim: 84, imp: 84, clu: 89, con: 90, gs: 90, uti: 94, mov: 85 }
+      },
+      {
+        id: "taco-2016", nickname: "TACO", country: "BR", role: "entry", teamId: "lg-2016", teamName: "Luminosity Gaming",
+        attributes: { aim: 86, imp: 88, clu: 80, con: 81, gs: 82, uti: 84, mov: 87 }
+      }
     ]
   },
   // 2. SK Gaming (2017)
@@ -26,11 +57,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "SK",
     accentColor: "#002B49",
     roster: [
-      { id: "fallen-2017", nickname: "FalleN", country: "BR", role: "igl", ovr: 94, teamId: "sk-2017", teamName: "SK Gaming" },
-      { id: "coldzera-2017", nickname: "coldzera", country: "BR", role: "rifler", ovr: 97, teamId: "sk-2017", teamName: "SK Gaming" },
-      { id: "fer-2017", nickname: "fer", country: "BR", role: "entry", ovr: 95, teamId: "sk-2017", teamName: "SK Gaming" },
-      { id: "taco-2017", nickname: "TACO", country: "BR", role: "support", ovr: 83, teamId: "sk-2017", teamName: "SK Gaming" },
-      { id: "felps-2017", nickname: "felps", country: "BR", role: "lurker", ovr: 87, teamId: "sk-2017", teamName: "SK Gaming" }
+      {
+        id: "fallen-2017", nickname: "FalleN", country: "BR", role: "igl", teamId: "sk-2017", teamName: "SK Gaming",
+        attributes: { aim: 89, imp: 91, clu: 93, con: 95, gs: 99, uti: 99, mov: 91 }
+      },
+      {
+        id: "coldzera-2017", nickname: "coldzera", country: "BR", role: "rifler", teamId: "sk-2017", teamName: "SK Gaming",
+        attributes: { aim: 99, imp: 99, clu: 97, con: 99, gs: 97, uti: 93, mov: 94 }
+      },
+      {
+        id: "fer-2017", nickname: "fer", country: "BR", role: "entry", teamId: "sk-2017", teamName: "SK Gaming",
+        attributes: { aim: 97, imp: 99, clu: 91, con: 92, gs: 93, uti: 95, mov: 98 }
+      },
+      {
+        id: "taco-2017", nickname: "TACO", country: "BR", role: "support", teamId: "sk-2017", teamName: "SK Gaming",
+        attributes: { aim: 79, imp: 79, clu: 84, con: 85, gs: 85, uti: 89, mov: 80 }
+      },
+      {
+        id: "felps-2017", nickname: "felps", country: "BR", role: "lurker", teamId: "sk-2017", teamName: "SK Gaming",
+        attributes: { aim: 88, imp: 88, clu: 91, con: 89, gs: 90, uti: 81, mov: 82 }
+      }
     ]
   },
   // 3. Astralis (2018)
@@ -42,11 +88,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "AST",
     accentColor: "#EF4444",
     roster: [
-      { id: "gla1ve-2018", nickname: "gla1ve", country: "DK", role: "igl", ovr: 92, teamId: "astralis-2018", teamName: "Astralis" },
-      { id: "dev1ce-2018", nickname: "dev1ce", country: "DK", role: "awp", ovr: 97, teamId: "astralis-2018", teamName: "Astralis" },
-      { id: "dupreeh-2018", nickname: "dupreeh", country: "DK", role: "entry", ovr: 93, teamId: "astralis-2018", teamName: "Astralis" },
-      { id: "magisk-2018", nickname: "Magisk", country: "DK", role: "rifler", ovr: 94, teamId: "astralis-2018", teamName: "Astralis" },
-      { id: "xyp9x-2018", nickname: "Xyp9x", country: "DK", role: "support", ovr: 90, teamId: "astralis-2018", teamName: "Astralis" }
+      {
+        id: "gla1ve-2018", nickname: "gla1ve", country: "DK", role: "igl", teamId: "astralis-2018", teamName: "Astralis",
+        attributes: { aim: 87, imp: 89, clu: 91, con: 93, gs: 98, uti: 97, mov: 89 }
+      },
+      {
+        id: "dev1ce-2018", nickname: "dev1ce", country: "DK", role: "awp", teamId: "astralis-2018", teamName: "Astralis",
+        attributes: { aim: 99, imp: 99, clu: 98, con: 98, gs: 97, uti: 92, mov: 94 }
+      },
+      {
+        id: "dupreeh-2018", nickname: "dupreeh", country: "DK", role: "entry", teamId: "astralis-2018", teamName: "Astralis",
+        attributes: { aim: 95, imp: 97, clu: 89, con: 90, gs: 91, uti: 93, mov: 96 }
+      },
+      {
+        id: "magisk-2018", nickname: "Magisk", country: "DK", role: "rifler", teamId: "astralis-2018", teamName: "Astralis",
+        attributes: { aim: 97, imp: 96, clu: 94, con: 96, gs: 94, uti: 90, mov: 91 }
+      },
+      {
+        id: "xyp9x-2018", nickname: "Xyp9x", country: "DK", role: "support", teamId: "astralis-2018", teamName: "Astralis",
+        attributes: { aim: 86, imp: 86, clu: 91, con: 92, gs: 92, uti: 96, mov: 87 }
+      }
     ]
   },
   // 4. Natus Vincere (2021)
@@ -58,11 +119,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "NAVI",
     accentColor: "#FACC15",
     roster: [
-      { id: "s1mple-2021", nickname: "s1mple", country: "UA", role: "awp", ovr: 99, teamId: "navi-2021", teamName: "Natus Vincere" },
-      { id: "electronic-2021", nickname: "electronic", country: "RU", role: "rifler", ovr: 94, teamId: "navi-2021", teamName: "Natus Vincere" },
-      { id: "b1t-2021", nickname: "b1t", country: "UA", role: "entry", ovr: 91, teamId: "navi-2021", teamName: "Natus Vincere" },
-      { id: "boombl4-2021", nickname: "Boombl4", country: "RU", role: "igl", ovr: 86, teamId: "navi-2021", teamName: "Natus Vincere" },
-      { id: "perfecto-2021", nickname: "Perfecto", country: "RU", role: "support", ovr: 88, teamId: "navi-2021", teamName: "Natus Vincere" }
+      {
+        id: "s1mple-2021", nickname: "s1mple", country: "UA", role: "awp", teamId: "navi-2021", teamName: "Natus Vincere",
+        attributes: { aim: 99, imp: 99, clu: 99, con: 99, gs: 99, uti: 94, mov: 96 }
+      },
+      {
+        id: "electronic-2021", nickname: "electronic", country: "RU", role: "rifler", teamId: "navi-2021", teamName: "Natus Vincere",
+        attributes: { aim: 97, imp: 96, clu: 94, con: 96, gs: 94, uti: 90, mov: 91 }
+      },
+      {
+        id: "b1t-2021", nickname: "b1t", country: "UA", role: "entry", teamId: "navi-2021", teamName: "Natus Vincere",
+        attributes: { aim: 93, imp: 95, clu: 87, con: 88, gs: 89, uti: 91, mov: 94 }
+      },
+      {
+        id: "boombl4-2021", nickname: "Boombl4", country: "RU", role: "igl", teamId: "navi-2021", teamName: "Natus Vincere",
+        attributes: { aim: 81, imp: 83, clu: 85, con: 87, gs: 92, uti: 91, mov: 83 }
+      },
+      {
+        id: "perfecto-2021", nickname: "Perfecto", country: "RU", role: "support", teamId: "navi-2021", teamName: "Natus Vincere",
+        attributes: { aim: 84, imp: 84, clu: 89, con: 90, gs: 90, uti: 94, mov: 85 }
+      }
     ]
   },
   // 5. FaZe Clan (2022)
@@ -74,11 +150,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "FAZE",
     accentColor: "#E11D48",
     roster: [
-      { id: "karrigan-2022", nickname: "karrigan", country: "DK", role: "igl", ovr: 91, teamId: "faze-2022", teamName: "FaZe Clan" },
-      { id: "rain-2022", nickname: "rain", country: "NO", role: "entry", ovr: 93, teamId: "faze-2022", teamName: "FaZe Clan" },
-      { id: "broky-2022", nickname: "broky", country: "LV", role: "awp", ovr: 94, teamId: "faze-2022", teamName: "FaZe Clan" },
-      { id: "twistzz-2022", nickname: "Twistzz", country: "CA", role: "rifler", ovr: 95, teamId: "faze-2022", teamName: "FaZe Clan" },
-      { id: "ropz-2022", nickname: "ropz", country: "EE", role: "lurker", ovr: 96, teamId: "faze-2022", teamName: "FaZe Clan" }
+      {
+        id: "karrigan-2022", nickname: "karrigan", country: "DK", role: "igl", teamId: "faze-2022", teamName: "FaZe Clan",
+        attributes: { aim: 86, imp: 88, clu: 90, con: 92, gs: 97, uti: 96, mov: 88 }
+      },
+      {
+        id: "rain-2022", nickname: "rain", country: "NO", role: "entry", teamId: "faze-2022", teamName: "FaZe Clan",
+        attributes: { aim: 95, imp: 97, clu: 89, con: 90, gs: 91, uti: 93, mov: 96 }
+      },
+      {
+        id: "broky-2022", nickname: "broky", country: "LV", role: "awp", teamId: "faze-2022", teamName: "FaZe Clan",
+        attributes: { aim: 97, imp: 97, clu: 95, con: 95, gs: 94, uti: 89, mov: 91 }
+      },
+      {
+        id: "twistzz-2022", nickname: "Twistzz", country: "CA", role: "rifler", teamId: "faze-2022", teamName: "FaZe Clan",
+        attributes: { aim: 98, imp: 97, clu: 95, con: 97, gs: 95, uti: 91, mov: 92 }
+      },
+      {
+        id: "ropz-2022", nickname: "ropz", country: "EE", role: "lurker", teamId: "faze-2022", teamName: "FaZe Clan",
+        attributes: { aim: 97, imp: 97, clu: 99, con: 98, gs: 99, uti: 90, mov: 91 }
+      }
     ]
   },
   // 6. Fnatic (2015)
@@ -90,11 +181,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "FNC",
     accentColor: "#FF6B00",
     roster: [
-      { id: "pronax-2015", nickname: "pronax", country: "SE", role: "igl", ovr: 87, teamId: "fnatic-2015", teamName: "Fnatic" },
-      { id: "olofmeister-2015", nickname: "olofmeister", country: "SE", role: "rifler", ovr: 97, teamId: "fnatic-2015", teamName: "Fnatic" },
-      { id: "flusha-2015", nickname: "flusha", country: "SE", role: "lurker", ovr: 95, teamId: "fnatic-2015", teamName: "Fnatic" },
-      { id: "jw-2015", nickname: "JW", country: "SE", role: "awp", ovr: 92, teamId: "fnatic-2015", teamName: "Fnatic" },
-      { id: "krimz-2015", nickname: "KRIMZ", country: "SE", role: "support", ovr: 93, teamId: "fnatic-2015", teamName: "Fnatic" }
+      {
+        id: "pronax-2015", nickname: "pronax", country: "SE", role: "igl", teamId: "fnatic-2015", teamName: "Fnatic",
+        attributes: { aim: 82, imp: 84, clu: 86, con: 88, gs: 93, uti: 92, mov: 84 }
+      },
+      {
+        id: "olofmeister-2015", nickname: "olofmeister", country: "SE", role: "rifler", teamId: "fnatic-2015", teamName: "Fnatic",
+        attributes: { aim: 99, imp: 99, clu: 97, con: 99, gs: 97, uti: 93, mov: 94 }
+      },
+      {
+        id: "flusha-2015", nickname: "flusha", country: "SE", role: "lurker", teamId: "fnatic-2015", teamName: "Fnatic",
+        attributes: { aim: 96, imp: 96, clu: 99, con: 97, gs: 98, uti: 89, mov: 90 }
+      },
+      {
+        id: "jw-2015", nickname: "JW", country: "SE", role: "awp", teamId: "fnatic-2015", teamName: "Fnatic",
+        attributes: { aim: 95, imp: 95, clu: 93, con: 93, gs: 92, uti: 87, mov: 89 }
+      },
+      {
+        id: "krimz-2015", nickname: "KRIMZ", country: "SE", role: "support", teamId: "fnatic-2015", teamName: "Fnatic",
+        attributes: { aim: 89, imp: 89, clu: 94, con: 95, gs: 95, uti: 99, mov: 90 }
+      }
     ]
   },
   // 7. Ninjas in Pyjamas (2014)
@@ -106,11 +212,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "NiP",
     accentColor: "#EAB308",
     roster: [
-      { id: "fiff-2014", nickname: "Fifflaren", country: "SE", role: "support", ovr: 81, teamId: "nip-2014", teamName: "Ninjas in Pyjamas" },
-      { id: "f0rest-2014", nickname: "f0rest", country: "SE", role: "rifler", ovr: 96, teamId: "nip-2014", teamName: "Ninjas in Pyjamas" },
-      { id: "get_right-2014", nickname: "GeT_RiGhT", country: "SE", role: "lurker", ovr: 97, teamId: "nip-2014", teamName: "Ninjas in Pyjamas" },
-      { id: "xizt-2014", nickname: "Xizt", country: "SE", role: "igl", ovr: 88, teamId: "nip-2014", teamName: "Ninjas in Pyjamas" },
-      { id: "friberg-2014", nickname: "friberg", country: "SE", role: "entry", ovr: 91, teamId: "nip-2014", teamName: "Ninjas in Pyjamas" }
+      {
+        id: "fiff-2014", nickname: "Fifflaren", country: "SE", role: "support", teamId: "nip-2014", teamName: "Ninjas in Pyjamas",
+        attributes: { aim: 77, imp: 77, clu: 82, con: 83, gs: 83, uti: 87, mov: 78 }
+      },
+      {
+        id: "f0rest-2014", nickname: "f0rest", country: "SE", role: "rifler", teamId: "nip-2014", teamName: "Ninjas in Pyjamas",
+        attributes: { aim: 99, imp: 98, clu: 96, con: 98, gs: 96, uti: 92, mov: 93 }
+      },
+      {
+        id: "get_right-2014", nickname: "GeT_RiGhT", country: "SE", role: "lurker", teamId: "nip-2014", teamName: "Ninjas in Pyjamas",
+        attributes: { aim: 98, imp: 98, clu: 99, con: 99, gs: 99, uti: 91, mov: 92 }
+      },
+      {
+        id: "xizt-2014", nickname: "Xizt", country: "SE", role: "igl", teamId: "nip-2014", teamName: "Ninjas in Pyjamas",
+        attributes: { aim: 83, imp: 85, clu: 87, con: 89, gs: 94, uti: 93, mov: 85 }
+      },
+      {
+        id: "friberg-2014", nickname: "friberg", country: "SE", role: "entry", teamId: "nip-2014", teamName: "Ninjas in Pyjamas",
+        attributes: { aim: 93, imp: 95, clu: 87, con: 88, gs: 89, uti: 91, mov: 94 }
+      }
     ]
   },
   // 8. Team Vitality (2023)
@@ -122,11 +243,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "VIT",
     accentColor: "#FACC15",
     roster: [
-      { id: "zywoo-2023", nickname: "ZywOo", country: "FR", role: "awp", ovr: 99, teamId: "vitality-2023", teamName: "Team Vitality" },
-      { id: "apex-2023", nickname: "apEX", country: "FR", role: "igl", ovr: 89, teamId: "vitality-2023", teamName: "Team Vitality" },
-      { id: "spinx-2023", nickname: "Spinx", country: "IL", role: "lurker", ovr: 93, teamId: "vitality-2023", teamName: "Team Vitality" },
-      { id: "magisk-2023", nickname: "Magisk", country: "DK", role: "rifler", ovr: 92, teamId: "vitality-2023", teamName: "Team Vitality" },
-      { id: "dupreeh-2023", nickname: "dupreeh", country: "DK", role: "entry", ovr: 90, teamId: "vitality-2023", teamName: "Team Vitality" }
+      {
+        id: "zywoo-2023", nickname: "ZywOo", country: "FR", role: "awp", teamId: "vitality-2023", teamName: "Team Vitality",
+        attributes: { aim: 99, imp: 99, clu: 99, con: 99, gs: 99, uti: 94, mov: 96 }
+      },
+      {
+        id: "apex-2023", nickname: "apEX", country: "FR", role: "igl", teamId: "vitality-2023", teamName: "Team Vitality",
+        attributes: { aim: 84, imp: 86, clu: 88, con: 90, gs: 95, uti: 94, mov: 86 }
+      },
+      {
+        id: "spinx-2023", nickname: "Spinx", country: "IL", role: "lurker", teamId: "vitality-2023", teamName: "Team Vitality",
+        attributes: { aim: 94, imp: 94, clu: 97, con: 95, gs: 96, uti: 87, mov: 88 }
+      },
+      {
+        id: "magisk-2023", nickname: "Magisk", country: "DK", role: "rifler", teamId: "vitality-2023", teamName: "Team Vitality",
+        attributes: { aim: 95, imp: 94, clu: 92, con: 94, gs: 92, uti: 88, mov: 89 }
+      },
+      {
+        id: "dupreeh-2023", nickname: "dupreeh", country: "DK", role: "entry", teamId: "vitality-2023", teamName: "Team Vitality",
+        attributes: { aim: 92, imp: 94, clu: 86, con: 87, gs: 88, uti: 90, mov: 93 }
+      }
     ]
   },
   // 9. Virtus.pro (2014)
@@ -138,11 +274,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "VP",
     accentColor: "#F97316",
     roster: [
-      { id: "taz-2014", nickname: "TaZ", country: "PL", role: "igl", ovr: 88, teamId: "vp-2014", teamName: "Virtus.pro" },
-      { id: "neo-2014", nickname: "NEO", country: "PL", role: "support", ovr: 92, teamId: "vp-2014", teamName: "Virtus.pro" },
-      { id: "snax-2014", nickname: "Snax", country: "PL", role: "lurker", ovr: 96, teamId: "vp-2014", teamName: "Virtus.pro" },
-      { id: "byali-2014", nickname: "byali", country: "PL", role: "rifler", ovr: 92, teamId: "vp-2014", teamName: "Virtus.pro" },
-      { id: "paszabiceps-2014", nickname: "pashaBiceps", country: "PL", role: "awp", ovr: 95, teamId: "vp-2014", teamName: "Virtus.pro" }
+      {
+        id: "taz-2014", nickname: "TaZ", country: "PL", role: "igl", teamId: "vp-2014", teamName: "Virtus.pro",
+        attributes: { aim: 83, imp: 85, clu: 87, con: 89, gs: 94, uti: 93, mov: 85 }
+      },
+      {
+        id: "neo-2014", nickname: "NEO", country: "PL", role: "support", teamId: "vp-2014", teamName: "Virtus.pro",
+        attributes: { aim: 88, imp: 88, clu: 93, con: 94, gs: 94, uti: 98, mov: 89 }
+      },
+      {
+        id: "snax-2014", nickname: "Snax", country: "PL", role: "lurker", teamId: "vp-2014", teamName: "Virtus.pro",
+        attributes: { aim: 97, imp: 97, clu: 99, con: 98, gs: 99, uti: 90, mov: 91 }
+      },
+      {
+        id: "byali-2014", nickname: "byali", country: "PL", role: "rifler", teamId: "vp-2014", teamName: "Virtus.pro",
+        attributes: { aim: 95, imp: 94, clu: 92, con: 94, gs: 92, uti: 88, mov: 89 }
+      },
+      {
+        id: "paszabiceps-2014", nickname: "pashaBiceps", country: "PL", role: "awp", teamId: "vp-2014", teamName: "Virtus.pro",
+        attributes: { aim: 98, imp: 98, clu: 96, con: 96, gs: 95, uti: 90, mov: 92 }
+      }
     ]
   },
   // 10. Natus Vincere (2024)
@@ -154,11 +305,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "NAVI",
     accentColor: "#FACC15",
     roster: [
-      { id: "aleksib-2024", nickname: "Aleksib", country: "FI", role: "igl", ovr: 90, teamId: "navi-2024", teamName: "Natus Vincere" },
-      { id: "jl-2024", nickname: "jL", country: "LT", role: "entry", ovr: 95, teamId: "navi-2024", teamName: "Natus Vincere" },
-      { id: "w0nderful-2024", nickname: "w0nderful", country: "UA", role: "awp", ovr: 92, teamId: "navi-2024", teamName: "Natus Vincere" },
-      { id: "im-2024", nickname: "iM", country: "RO", role: "rifler", ovr: 90, teamId: "navi-2024", teamName: "Natus Vincere" },
-      { id: "b1t-2024", nickname: "b1t", country: "UA", role: "lurker", ovr: 93, teamId: "navi-2024", teamName: "Natus Vincere" }
+      {
+        id: "aleksib-2024", nickname: "Aleksib", country: "FI", role: "igl", teamId: "navi-2024", teamName: "Natus Vincere",
+        attributes: { aim: 85, imp: 87, clu: 89, con: 91, gs: 96, uti: 95, mov: 87 }
+      },
+      {
+        id: "jl-2024", nickname: "jL", country: "LT", role: "entry", teamId: "navi-2024", teamName: "Natus Vincere",
+        attributes: { aim: 97, imp: 99, clu: 91, con: 92, gs: 93, uti: 95, mov: 98 }
+      },
+      {
+        id: "w0nderful-2024", nickname: "w0nderful", country: "UA", role: "awp", teamId: "navi-2024", teamName: "Natus Vincere",
+        attributes: { aim: 95, imp: 95, clu: 93, con: 93, gs: 92, uti: 87, mov: 89 }
+      },
+      {
+        id: "im-2024", nickname: "iM", country: "RO", role: "rifler", teamId: "navi-2024", teamName: "Natus Vincere",
+        attributes: { aim: 93, imp: 92, clu: 90, con: 92, gs: 90, uti: 86, mov: 87 }
+      },
+      {
+        id: "b1t-2024", nickname: "b1t", country: "UA", role: "lurker", teamId: "navi-2024", teamName: "Natus Vincere",
+        attributes: { aim: 94, imp: 94, clu: 97, con: 95, gs: 96, uti: 87, mov: 88 }
+      }
     ]
   },
   // 11. Team Spirit (2024)
@@ -170,11 +336,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "TS",
     accentColor: "#10B981",
     roster: [
-      { id: "chopper-2024", nickname: "chopper", country: "RU", role: "igl", ovr: 88, teamId: "spirit-2024", teamName: "Team Spirit" },
-      { id: "donk-2024", nickname: "donk", country: "RU", role: "entry", ovr: 98, teamId: "spirit-2024", teamName: "Team Spirit" },
-      { id: "sh1ro-2024", nickname: "sh1ro", country: "RU", role: "awp", ovr: 96, teamId: "spirit-2024", teamName: "Team Spirit" },
-      { id: "magixx-2024", nickname: "magixx", country: "RU", role: "support", ovr: 87, teamId: "spirit-2024", teamName: "Team Spirit" },
-      { id: "zont1x-2024", nickname: "zont1x", country: "UA", role: "lurker", ovr: 89, teamId: "spirit-2024", teamName: "Team Spirit" }
+      {
+        id: "chopper-2024", nickname: "chopper", country: "RU", role: "igl", teamId: "spirit-2024", teamName: "Team Spirit",
+        attributes: { aim: 83, imp: 85, clu: 87, con: 89, gs: 94, uti: 93, mov: 85 }
+      },
+      {
+        id: "donk-2024", nickname: "donk", country: "RU", role: "entry", teamId: "spirit-2024", teamName: "Team Spirit",
+        attributes: { aim: 99, imp: 99, clu: 94, con: 95, gs: 96, uti: 98, mov: 99 }
+      },
+      {
+        id: "sh1ro-2024", nickname: "sh1ro", country: "RU", role: "awp", teamId: "spirit-2024", teamName: "Team Spirit",
+        attributes: { aim: 99, imp: 99, clu: 97, con: 97, gs: 96, uti: 91, mov: 93 }
+      },
+      {
+        id: "magixx-2024", nickname: "magixx", country: "RU", role: "support", teamId: "spirit-2024", teamName: "Team Spirit",
+        attributes: { aim: 83, imp: 83, clu: 88, con: 89, gs: 89, uti: 93, mov: 84 }
+      },
+      {
+        id: "zont1x-2024", nickname: "zont1x", country: "UA", role: "lurker", teamId: "spirit-2024", teamName: "Team Spirit",
+        attributes: { aim: 90, imp: 90, clu: 93, con: 91, gs: 92, uti: 83, mov: 84 }
+      }
     ]
   },
   // 12. G2 Esports (2023)
@@ -186,11 +367,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "G2",
     accentColor: "#EF4444",
     roster: [
-      { id: "hoxxi-2023", nickname: "HooXi", country: "DK", role: "igl", ovr: 86, teamId: "g2-2023", teamName: "G2 Esports" },
-      { id: "niko-2023", nickname: "NiKo", country: "BA", role: "entry", ovr: 97, teamId: "g2-2023", teamName: "G2 Esports" },
-      { id: "m0nesy-2023", nickname: "m0NESY", country: "RU", role: "awp", ovr: 96, teamId: "g2-2023", teamName: "G2 Esports" },
-      { id: "hunter-2023", nickname: "huNter-", country: "BA", role: "rifler", ovr: 92, teamId: "g2-2023", teamName: "G2 Esports" },
-      { id: "jks-2023", nickname: "jks", country: "AU", role: "support", ovr: 89, teamId: "g2-2023", teamName: "G2 Esports" }
+      {
+        id: "hoxxi-2023", nickname: "HooXi", country: "DK", role: "igl", teamId: "g2-2023", teamName: "G2 Esports",
+        attributes: { aim: 81, imp: 83, clu: 85, con: 87, gs: 92, uti: 91, mov: 83 }
+      },
+      {
+        id: "niko-2023", nickname: "NiKo", country: "BA", role: "entry", teamId: "g2-2023", teamName: "G2 Esports",
+        attributes: { aim: 99, imp: 99, clu: 93, con: 94, gs: 95, uti: 97, mov: 99 }
+      },
+      {
+        id: "m0nesy-2023", nickname: "m0NESY", country: "RU", role: "awp", teamId: "g2-2023", teamName: "G2 Esports",
+        attributes: { aim: 99, imp: 99, clu: 97, con: 97, gs: 96, uti: 91, mov: 93 }
+      },
+      {
+        id: "hunter-2023", nickname: "huNter-", country: "BA", role: "rifler", teamId: "g2-2023", teamName: "G2 Esports",
+        attributes: { aim: 95, imp: 94, clu: 92, con: 94, gs: 92, uti: 88, mov: 89 }
+      },
+      {
+        id: "jks-2023", nickname: "jks", country: "AU", role: "support", teamId: "g2-2023", teamName: "G2 Esports",
+        attributes: { aim: 85, imp: 85, clu: 90, con: 91, gs: 91, uti: 95, mov: 86 }
+      }
     ]
   },
   // 13. Team Liquid (2019)
@@ -202,11 +398,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "TL",
     accentColor: "#0EA5E9",
     roster: [
-      { id: "nitr0-2019", nickname: "nitr0", country: "US", role: "igl", ovr: 91, teamId: "liquid-2019", teamName: "Team Liquid" },
-      { id: "elige-2019", nickname: "EliGE", country: "US", role: "entry", ovr: 96, teamId: "liquid-2019", teamName: "Team Liquid" },
-      { id: "twistzz-2019", nickname: "Twistzz", country: "CA", role: "rifler", ovr: 95, teamId: "liquid-2019", teamName: "Team Liquid" },
-      { id: "nafe-2019", nickname: "NAF", country: "CA", role: "lurker", ovr: 94, teamId: "liquid-2019", teamName: "Team Liquid" },
-      { id: "stewie2k-2019", nickname: "Stewie2K", country: "US", role: "support", ovr: 90, teamId: "liquid-2019", teamName: "Team Liquid" }
+      {
+        id: "nitr0-2019", nickname: "nitr0", country: "US", role: "igl", teamId: "liquid-2019", teamName: "Team Liquid",
+        attributes: { aim: 86, imp: 88, clu: 90, con: 92, gs: 97, uti: 96, mov: 88 }
+      },
+      {
+        id: "elige-2019", nickname: "EliGE", country: "US", role: "entry", teamId: "liquid-2019", teamName: "Team Liquid",
+        attributes: { aim: 98, imp: 99, clu: 92, con: 93, gs: 94, uti: 96, mov: 99 }
+      },
+      {
+        id: "twistzz-2019", nickname: "Twistzz", country: "CA", role: "rifler", teamId: "liquid-2019", teamName: "Team Liquid",
+        attributes: { aim: 98, imp: 97, clu: 95, con: 97, gs: 95, uti: 91, mov: 92 }
+      },
+      {
+        id: "nafe-2019", nickname: "NAF", country: "CA", role: "lurker", teamId: "liquid-2019", teamName: "Team Liquid",
+        attributes: { aim: 95, imp: 95, clu: 98, con: 96, gs: 97, uti: 88, mov: 89 }
+      },
+      {
+        id: "stewie2k-2019", nickname: "Stewie2K", country: "US", role: "support", teamId: "liquid-2019", teamName: "Team Liquid",
+        attributes: { aim: 86, imp: 86, clu: 91, con: 92, gs: 92, uti: 96, mov: 87 }
+      }
     ]
   },
   // 14. Cloud9 (2018)
@@ -218,11 +429,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "C9",
     accentColor: "#00AEEF",
     roster: [
-      { id: "tarik-2018", nickname: "tarik", country: "US", role: "igl", ovr: 94, teamId: "c9-2018", teamName: "Cloud9" },
-      { id: "stewie2k-2018", nickname: "Stewie2K", country: "US", role: "entry", ovr: 92, teamId: "c9-2018", teamName: "Cloud9" },
-      { id: "autimatic-2018", nickname: "autimatic", country: "US", role: "lurker", ovr: 93, teamId: "c9-2018", teamName: "Cloud9" },
-      { id: "rush-2018", nickname: "RUSH", country: "US", role: "support", ovr: 87, teamId: "c9-2018", teamName: "Cloud9" },
-      { id: "ska-2018", nickname: "Skadoodle", country: "US", role: "awp", ovr: 91, teamId: "c9-2018", teamName: "Cloud9" }
+      {
+        id: "tarik-2018", nickname: "tarik", country: "US", role: "igl", teamId: "c9-2018", teamName: "Cloud9",
+        attributes: { aim: 89, imp: 91, clu: 93, con: 95, gs: 99, uti: 99, mov: 91 }
+      },
+      {
+        id: "stewie2k-2018", nickname: "Stewie2K", country: "US", role: "entry", teamId: "c9-2018", teamName: "Cloud9",
+        attributes: { aim: 94, imp: 96, clu: 88, con: 89, gs: 90, uti: 92, mov: 95 }
+      },
+      {
+        id: "autimatic-2018", nickname: "autimatic", country: "US", role: "lurker", teamId: "c9-2018", teamName: "Cloud9",
+        attributes: { aim: 94, imp: 94, clu: 97, con: 95, gs: 96, uti: 87, mov: 88 }
+      },
+      {
+        id: "rush-2018", nickname: "RUSH", country: "US", role: "support", teamId: "c9-2018", teamName: "Cloud9",
+        attributes: { aim: 83, imp: 83, clu: 88, con: 89, gs: 89, uti: 93, mov: 84 }
+      },
+      {
+        id: "ska-2018", nickname: "Skadoodle", country: "US", role: "awp", teamId: "c9-2018", teamName: "Cloud9",
+        attributes: { aim: 94, imp: 94, clu: 92, con: 92, gs: 91, uti: 86, mov: 88 }
+      }
     ]
   },
   // 15. Team EnVyUs (2015)
@@ -234,11 +460,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "nV",
     accentColor: "#1E3A8A",
     roster: [
-      { id: "happy-2015", nickname: "Happy", country: "FR", role: "igl", ovr: 91, teamId: "envy-2015", teamName: "Team EnVyUs" },
-      { id: "kennys-2015", nickname: "kennyS", country: "FR", role: "awp", ovr: 97, teamId: "envy-2015", teamName: "Team EnVyUs" },
-      { id: "apex-2015", nickname: "apEX", country: "FR", role: "entry", ovr: 92, teamId: "envy-2015", teamName: "Team EnVyUs" },
-      { id: "nbk-2015", nickname: "NBK-", country: "FR", role: "support", ovr: 90, teamId: "envy-2015", teamName: "Team EnVyUs" },
-      { id: "kioshima-2015", nickname: "kioShiMa", country: "FR", role: "rifler", ovr: 89, teamId: "envy-2015", teamName: "Team EnVyUs" }
+      {
+        id: "happy-2015", nickname: "Happy", country: "FR", role: "igl", teamId: "envy-2015", teamName: "Team EnVyUs",
+        attributes: { aim: 86, imp: 88, clu: 90, con: 92, gs: 97, uti: 96, mov: 88 }
+      },
+      {
+        id: "kennys-2015", nickname: "kennyS", country: "FR", role: "awp", teamId: "envy-2015", teamName: "Team EnVyUs",
+        attributes: { aim: 99, imp: 99, clu: 98, con: 98, gs: 97, uti: 92, mov: 94 }
+      },
+      {
+        id: "apex-2015", nickname: "apEX", country: "FR", role: "entry", teamId: "envy-2015", teamName: "Team EnVyUs",
+        attributes: { aim: 94, imp: 96, clu: 88, con: 89, gs: 90, uti: 92, mov: 95 }
+      },
+      {
+        id: "nbk-2015", nickname: "NBK-", country: "FR", role: "support", teamId: "envy-2015", teamName: "Team EnVyUs",
+        attributes: { aim: 86, imp: 86, clu: 91, con: 92, gs: 92, uti: 96, mov: 87 }
+      },
+      {
+        id: "kioshima-2015", nickname: "kioShiMa", country: "FR", role: "rifler", teamId: "envy-2015", teamName: "Team EnVyUs",
+        attributes: { aim: 92, imp: 91, clu: 89, con: 91, gs: 89, uti: 85, mov: 86 }
+      }
     ]
   },
   // 16. Gambit Esports (2017)
@@ -250,11 +491,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "GMB",
     accentColor: "#DC2626",
     roster: [
-      { id: "zeus-2017", nickname: "Zeus", country: "UA", role: "igl", ovr: 88, teamId: "gambit-2017", teamName: "Gambit Esports" },
-      { id: "dosia-2017", nickname: "Dosia", country: "RU", role: "support", ovr: 86, teamId: "gambit-2017", teamName: "Gambit Esports" },
-      { id: "adren-2017", nickname: "AdreN", country: "KZ", role: "rifler", ovr: 94, teamId: "gambit-2017", teamName: "Gambit Esports" },
-      { id: "hobbit-2017", nickname: "HObbit", country: "KZ", role: "entry", ovr: 92, teamId: "gambit-2017", teamName: "Gambit Esports" },
-      { id: "mou-2017", nickname: "mou", country: "KZ", role: "awp", ovr: 89, teamId: "gambit-2017", teamName: "Gambit Esports" }
+      {
+        id: "zeus-2017", nickname: "Zeus", country: "UA", role: "igl", teamId: "gambit-2017", teamName: "Gambit Esports",
+        attributes: { aim: 83, imp: 85, clu: 87, con: 89, gs: 94, uti: 93, mov: 85 }
+      },
+      {
+        id: "dosia-2017", nickname: "Dosia", country: "RU", role: "support", teamId: "gambit-2017", teamName: "Gambit Esports",
+        attributes: { aim: 82, imp: 82, clu: 87, con: 88, gs: 88, uti: 92, mov: 83 }
+      },
+      {
+        id: "adren-2017", nickname: "AdreN", country: "KZ", role: "rifler", teamId: "gambit-2017", teamName: "Gambit Esports",
+        attributes: { aim: 97, imp: 96, clu: 94, con: 96, gs: 94, uti: 90, mov: 91 }
+      },
+      {
+        id: "hobbit-2017", nickname: "HObbit", country: "KZ", role: "entry", teamId: "gambit-2017", teamName: "Gambit Esports",
+        attributes: { aim: 94, imp: 96, clu: 88, con: 89, gs: 90, uti: 92, mov: 95 }
+      },
+      {
+        id: "mou-2017", nickname: "mou", country: "KZ", role: "awp", teamId: "gambit-2017", teamName: "Gambit Esports",
+        attributes: { aim: 92, imp: 92, clu: 90, con: 90, gs: 89, uti: 84, mov: 86 }
+      }
     ]
   },
   // 17. FURIA Esports (2019)
@@ -266,11 +522,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "FUR",
     accentColor: "#F59E0B",
     roster: [
-      { id: "arT-2019", nickname: "arT", country: "BR", role: "igl", ovr: 90, teamId: "furia-2019", teamName: "FURIA Esports" },
-      { id: "yuurih-2019", nickname: "yuurih", country: "BR", role: "rifler", ovr: 93, teamId: "furia-2019", teamName: "FURIA Esports" },
-      { id: "kscerato-2019", nickname: "KSCERATO", country: "BR", role: "lurker", ovr: 95, teamId: "furia-2019", teamName: "FURIA Esports" },
-      { id: "vini-2019", nickname: "VINI", country: "BR", role: "support", ovr: 86, teamId: "furia-2019", teamName: "FURIA Esports" },
-      { id: "ablej-2019", nickname: "ableJ", country: "BR", role: "entry", ovr: 83, teamId: "furia-2019", teamName: "FURIA Esports" }
+      {
+        id: "arT-2019", nickname: "arT", country: "BR", role: "igl", teamId: "furia-2019", teamName: "FURIA Esports",
+        attributes: { aim: 88, imp: 94, clu: 81, con: 79, gs: 89, uti: 86, mov: 94 }
+      },
+      {
+        id: "yuurih-2019", nickname: "yuurih", country: "BR", role: "rifler", teamId: "furia-2019", teamName: "FURIA Esports",
+        attributes: { aim: 91, imp: 89, clu: 86, con: 90, gs: 88, uti: 82, mov: 90 }
+      },
+      {
+        id: "kscerato-2019", nickname: "KSCERATO", country: "BR", role: "lurker", teamId: "furia-2019", teamName: "FURIA Esports",
+        attributes: { aim: 92, imp: 91, clu: 87, con: 91, gs: 88, uti: 80, mov: 89 }
+      },
+      {
+        id: "vini-2019", nickname: "VINI", country: "BR", role: "support", teamId: "furia-2019", teamName: "FURIA Esports",
+        attributes: { aim: 84, imp: 82, clu: 79, con: 84, gs: 85, uti: 88, mov: 83 }
+      },
+      {
+        id: "ablej-2019", nickname: "ableJ", country: "BR", role: "entry", teamId: "furia-2019", teamName: "FURIA Esports",
+        attributes: { aim: 81, imp: 78, clu: 76, con: 77, gs: 79, uti: 80, mov: 82 }
+      }
     ]
   },
   // 18. Renegades (2019)
@@ -282,11 +553,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "RNG",
     accentColor: "#8B0000",
     roster: [
-      { id: "dexter-2019", nickname: "AZR", country: "AU", role: "igl", ovr: 86, teamId: "renegades-2019", teamName: "Renegades" },
-      { id: "jks-2019", nickname: "jks", country: "AU", role: "rifler", ovr: 94, teamId: "renegades-2019", teamName: "Renegades" },
-      { id: "liazz-2019", nickname: "Liazz", country: "AU", role: "support", ovr: 85, teamId: "renegades-2019", teamName: "Renegades" },
-      { id: "grat-2019", nickname: "Gratisfaction", country: "NZ", role: "awp", ovr: 87, teamId: "renegades-2019", teamName: "Renegades" },
-      { id: "jkaem-2019", nickname: "jkaem", country: "NO", role: "entry", ovr: 91, teamId: "renegades-2019", teamName: "Renegades" }
+      {
+        id: "dexter-2019", nickname: "AZR", country: "AU", role: "igl", teamId: "renegades-2019", teamName: "Renegades",
+        attributes: { aim: 81, imp: 83, clu: 85, con: 87, gs: 92, uti: 91, mov: 83 }
+      },
+      {
+        id: "jks-2019", nickname: "jks", country: "AU", role: "rifler", teamId: "renegades-2019", teamName: "Renegades",
+        attributes: { aim: 97, imp: 96, clu: 94, con: 96, gs: 94, uti: 90, mov: 91 }
+      },
+      {
+        id: "liazz-2019", nickname: "Liazz", country: "AU", role: "support", teamId: "renegades-2019", teamName: "Renegades",
+        attributes: { aim: 81, imp: 81, clu: 86, con: 87, gs: 87, uti: 91, mov: 82 }
+      },
+      {
+        id: "grat-2019", nickname: "Gratisfaction", country: "NZ", role: "awp", teamId: "renegades-2019", teamName: "Renegades",
+        attributes: { aim: 90, imp: 90, clu: 88, con: 88, gs: 87, uti: 82, mov: 84 }
+      },
+      {
+        id: "jkaem-2019", nickname: "jkaem", country: "NO", role: "entry", teamId: "renegades-2019", teamName: "Renegades",
+        attributes: { aim: 93, imp: 95, clu: 87, con: 88, gs: 89, uti: 91, mov: 94 }
+      }
     ]
   },
   // 19. NRG Esports (2019)
@@ -298,11 +584,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "NRG",
     accentColor: "#EF4444",
     roster: [
-      { id: "stanislaw-2019", nickname: "stanislaw", country: "CA", role: "igl", ovr: 88, teamId: "nrg-2019", teamName: "NRG Esports" },
-      { id: "tarik-2019", nickname: "tarik", country: "US", role: "entry", ovr: 91, teamId: "nrg-2019", teamName: "NRG Esports" },
-      { id: "brehze-2019", nickname: "Brehze", country: "US", role: "rifler", ovr: 94, teamId: "nrg-2019", teamName: "NRG Esports" },
-      { id: "ethan-2019", nickname: "Ethan", country: "US", role: "support", ovr: 90, teamId: "nrg-2019", teamName: "NRG Esports" },
-      { id: "cerq-2019", nickname: "CeRq", country: "BG", role: "awp", ovr: 93, teamId: "nrg-2019", teamName: "NRG Esports" }
+      {
+        id: "stanislaw-2019", nickname: "stanislaw", country: "CA", role: "igl", teamId: "nrg-2019", teamName: "NRG Esports",
+        attributes: { aim: 83, imp: 85, clu: 87, con: 89, gs: 94, uti: 93, mov: 85 }
+      },
+      {
+        id: "tarik-2019", nickname: "tarik", country: "US", role: "entry", teamId: "nrg-2019", teamName: "NRG Esports",
+        attributes: { aim: 93, imp: 95, clu: 87, con: 88, gs: 89, uti: 91, mov: 94 }
+      },
+      {
+        id: "brehze-2019", nickname: "Brehze", country: "US", role: "rifler", teamId: "nrg-2019", teamName: "NRG Esports",
+        attributes: { aim: 97, imp: 96, clu: 94, con: 96, gs: 94, uti: 90, mov: 91 }
+      },
+      {
+        id: "ethan-2019", nickname: "Ethan", country: "US", role: "support", teamId: "nrg-2019", teamName: "NRG Esports",
+        attributes: { aim: 86, imp: 86, clu: 91, con: 92, gs: 92, uti: 96, mov: 87 }
+      },
+      {
+        id: "cerq-2019", nickname: "CeRq", country: "BG", role: "awp", teamId: "nrg-2019", teamName: "NRG Esports",
+        attributes: { aim: 96, imp: 96, clu: 94, con: 94, gs: 93, uti: 88, mov: 90 }
+      }
     ]
   },
   // 20. MOUZ (2018)
@@ -314,11 +615,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "MOUZ",
     accentColor: "#E11D48",
     roster: [
-      { id: "chrisj-2018", nickname: "chrisJ", country: "NL", role: "igl", ovr: 89, teamId: "mouz-2018", teamName: "MOUZ" },
-      { id: "oskar-2018", nickname: "oskar", country: "CZ", role: "awp", ovr: 94, teamId: "mouz-2018", teamName: "MOUZ" },
-      { id: "ropz-2018", nickname: "ropz", country: "EE", role: "lurker", ovr: 93, teamId: "mouz-2018", teamName: "MOUZ" },
-      { id: "suNny-2018", nickname: "suNny", country: "FI", role: "entry", ovr: 93, teamId: "mouz-2018", teamName: "MOUZ" },
-      { id: "styko-2018", nickname: "STYKO", country: "SK", role: "support", ovr: 84, teamId: "mouz-2018", teamName: "MOUZ" }
+      {
+        id: "chrisj-2018", nickname: "chrisJ", country: "NL", role: "igl", teamId: "mouz-2018", teamName: "MOUZ",
+        attributes: { aim: 84, imp: 86, clu: 88, con: 90, gs: 95, uti: 94, mov: 86 }
+      },
+      {
+        id: "oskar-2018", nickname: "oskar", country: "CZ", role: "awp", teamId: "mouz-2018", teamName: "MOUZ",
+        attributes: { aim: 97, imp: 97, clu: 95, con: 95, gs: 94, uti: 89, mov: 91 }
+      },
+      {
+        id: "ropz-2018", nickname: "ropz", country: "EE", role: "lurker", teamId: "mouz-2018", teamName: "MOUZ",
+        attributes: { aim: 94, imp: 94, clu: 97, con: 95, gs: 96, uti: 87, mov: 88 }
+      },
+      {
+        id: "suNny-2018", nickname: "suNny", country: "FI", role: "entry", teamId: "mouz-2018", teamName: "MOUZ",
+        attributes: { aim: 95, imp: 97, clu: 89, con: 90, gs: 91, uti: 93, mov: 96 }
+      },
+      {
+        id: "styko-2018", nickname: "STYKO", country: "SK", role: "support", teamId: "mouz-2018", teamName: "MOUZ",
+        attributes: { aim: 80, imp: 80, clu: 85, con: 86, gs: 86, uti: 90, mov: 81 }
+      }
     ]
   },
   // 21. Complexity Gaming (2020)
@@ -330,11 +646,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "COL",
     accentColor: "#002B49",
     roster: [
-      { id: "blamef-2020", nickname: "blameF", country: "DK", role: "igl", ovr: 94, teamId: "col-2020", teamName: "Complexity Gaming" },
-      { id: "k0nfig-2020", nickname: "k0nfig", country: "DK", role: "entry", ovr: 92, teamId: "col-2020", teamName: "Complexity Gaming" },
-      { id: "poizon-2020", nickname: "poizon", country: "BG", role: "awp", ovr: 89, teamId: "col-2020", teamName: "Complexity Gaming" },
-      { id: "jks-2020", nickname: "jks", country: "AU", role: "lurker", ovr: 91, teamId: "col-2020", teamName: "Complexity Gaming" },
-      { id: "rush-2020", nickname: "RUSH", country: "US", role: "support", ovr: 85, teamId: "col-2020", teamName: "Complexity Gaming" }
+      {
+        id: "blamef-2020", nickname: "blameF", country: "DK", role: "igl", teamId: "col-2020", teamName: "Complexity Gaming",
+        attributes: { aim: 89, imp: 91, clu: 93, con: 95, gs: 99, uti: 99, mov: 91 }
+      },
+      {
+        id: "k0nfig-2020", nickname: "k0nfig", country: "DK", role: "entry", teamId: "col-2020", teamName: "Complexity Gaming",
+        attributes: { aim: 94, imp: 96, clu: 88, con: 89, gs: 90, uti: 92, mov: 95 }
+      },
+      {
+        id: "poizon-2020", nickname: "poizon", country: "BG", role: "awp", teamId: "col-2020", teamName: "Complexity Gaming",
+        attributes: { aim: 92, imp: 92, clu: 90, con: 90, gs: 89, uti: 84, mov: 86 }
+      },
+      {
+        id: "jks-2020", nickname: "jks", country: "AU", role: "lurker", teamId: "col-2020", teamName: "Complexity Gaming",
+        attributes: { aim: 92, imp: 92, clu: 95, con: 93, gs: 94, uti: 85, mov: 86 }
+      },
+      {
+        id: "rush-2020", nickname: "RUSH", country: "US", role: "support", teamId: "col-2020", teamName: "Complexity Gaming",
+        attributes: { aim: 81, imp: 81, clu: 86, con: 87, gs: 87, uti: 91, mov: 82 }
+      }
     ]
   },
   // 22. ENCE (2019)
@@ -346,11 +677,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "ENCE",
     accentColor: "#85144b",
     roster: [
-      { id: "aleksib-2019", nickname: "Aleksib", country: "FI", role: "igl", ovr: 91, teamId: "ence-2019", teamName: "ENCE" },
-      { id: "allu-2019", nickname: "allu", country: "FI", role: "awp", ovr: 92, teamId: "ence-2019", teamName: "ENCE" },
-      { id: "sergej-2019", nickname: "sergej", country: "FI", role: "rifler", ovr: 93, teamId: "ence-2019", teamName: "ENCE" },
-      { id: "aerial-2019", nickname: "Aerial", country: "FI", role: "entry", ovr: 89, teamId: "ence-2019", teamName: "ENCE" },
-      { id: "xseven-2019", nickname: "xseveN", country: "FI", role: "support", ovr: 86, teamId: "ence-2019", teamName: "ENCE" }
+      {
+        id: "aleksib-2019", nickname: "Aleksib", country: "FI", role: "igl", teamId: "ence-2019", teamName: "ENCE",
+        attributes: { aim: 86, imp: 88, clu: 90, con: 92, gs: 97, uti: 96, mov: 88 }
+      },
+      {
+        id: "allu-2019", nickname: "allu", country: "FI", role: "awp", teamId: "ence-2019", teamName: "ENCE",
+        attributes: { aim: 95, imp: 95, clu: 93, con: 93, gs: 92, uti: 87, mov: 89 }
+      },
+      {
+        id: "sergej-2019", nickname: "sergej", country: "FI", role: "rifler", teamId: "ence-2019", teamName: "ENCE",
+        attributes: { aim: 96, imp: 95, clu: 93, con: 95, gs: 93, uti: 89, mov: 90 }
+      },
+      {
+        id: "aerial-2019", nickname: "Aerial", country: "FI", role: "entry", teamId: "ence-2019", teamName: "ENCE",
+        attributes: { aim: 91, imp: 93, clu: 85, con: 86, gs: 87, uti: 89, mov: 92 }
+      },
+      {
+        id: "xseven-2019", nickname: "xseveN", country: "FI", role: "support", teamId: "ence-2019", teamName: "ENCE",
+        attributes: { aim: 82, imp: 82, clu: 87, con: 88, gs: 88, uti: 92, mov: 83 }
+      }
     ]
   },
   // 23. Heroic (2022)
@@ -362,11 +708,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "HER",
     accentColor: "#EF4444",
     roster: [
-      { id: "cadiaN-2022", nickname: "cadiaN", country: "DK", role: "igl", ovr: 92, teamId: "heroic-2022", teamName: "Heroic" },
-      { id: "stavn-2022", nickname: "stavn", country: "DK", role: "rifler", ovr: 95, teamId: "heroic-2022", teamName: "Heroic" },
-      { id: "teses-2022", nickname: "TeSeS", country: "DK", role: "entry", ovr: 89, teamId: "heroic-2022", teamName: "Heroic" },
-      { id: "sjuush-2022", nickname: "sjuush", country: "DK", role: "support", ovr: 90, teamId: "heroic-2022", teamName: "Heroic" },
-      { id: "jabbi-2022", nickname: "jabbi", country: "DK", role: "lurker", ovr: 91, teamId: "heroic-2022", teamName: "Heroic" }
+      {
+        id: "cadiaN-2022", nickname: "cadiaN", country: "DK", role: "igl", teamId: "heroic-2022", teamName: "Heroic",
+        attributes: { aim: 87, imp: 89, clu: 91, con: 93, gs: 98, uti: 97, mov: 89 }
+      },
+      {
+        id: "stavn-2022", nickname: "stavn", country: "DK", role: "rifler", teamId: "heroic-2022", teamName: "Heroic",
+        attributes: { aim: 98, imp: 97, clu: 95, con: 97, gs: 95, uti: 91, mov: 92 }
+      },
+      {
+        id: "teses-2022", nickname: "TeSeS", country: "DK", role: "entry", teamId: "heroic-2022", teamName: "Heroic",
+        attributes: { aim: 91, imp: 93, clu: 85, con: 86, gs: 87, uti: 89, mov: 92 }
+      },
+      {
+        id: "sjuush-2022", nickname: "sjuush", country: "DK", role: "support", teamId: "heroic-2022", teamName: "Heroic",
+        attributes: { aim: 86, imp: 86, clu: 91, con: 92, gs: 92, uti: 96, mov: 87 }
+      },
+      {
+        id: "jabbi-2022", nickname: "jabbi", country: "DK", role: "lurker", teamId: "heroic-2022", teamName: "Heroic",
+        attributes: { aim: 92, imp: 92, clu: 95, con: 93, gs: 94, uti: 85, mov: 86 }
+      }
     ]
   },
   // 24. Outsiders (2022)
@@ -378,11 +739,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "OUT",
     accentColor: "#F97316",
     roster: [
-      { id: "jame-2022", nickname: "Jame", country: "RU", role: "igl", ovr: 95, teamId: "outsiders-2022", teamName: "Outsiders" },
-      { id: "fl1t-2022", nickname: "FL1T", country: "RU", role: "rifler", ovr: 93, teamId: "outsiders-2022", teamName: "Outsiders" },
-      { id: "fame-2022", nickname: "fame", country: "RU", role: "entry", ovr: 91, teamId: "outsiders-2022", teamName: "Outsiders" },
-      { id: "qikert-2022", nickname: "Qikert", country: "KZ", role: "support", ovr: 87, teamId: "outsiders-2022", teamName: "Outsiders" },
-      { id: "n0rb3r7-2022", nickname: "n0rb3r7", country: "RU", role: "lurker", ovr: 88, teamId: "outsiders-2022", teamName: "Outsiders" }
+      {
+        id: "jame-2022", nickname: "Jame", country: "RU", role: "igl", teamId: "outsiders-2022", teamName: "Outsiders",
+        attributes: { aim: 90, imp: 92, clu: 94, con: 96, gs: 99, uti: 99, mov: 92 }
+      },
+      {
+        id: "fl1t-2022", nickname: "FL1T", country: "RU", role: "rifler", teamId: "outsiders-2022", teamName: "Outsiders",
+        attributes: { aim: 96, imp: 95, clu: 93, con: 95, gs: 93, uti: 89, mov: 90 }
+      },
+      {
+        id: "fame-2022", nickname: "fame", country: "RU", role: "entry", teamId: "outsiders-2022", teamName: "Outsiders",
+        attributes: { aim: 93, imp: 95, clu: 87, con: 88, gs: 89, uti: 91, mov: 94 }
+      },
+      {
+        id: "qikert-2022", nickname: "Qikert", country: "KZ", role: "support", teamId: "outsiders-2022", teamName: "Outsiders",
+        attributes: { aim: 83, imp: 83, clu: 88, con: 89, gs: 89, uti: 93, mov: 84 }
+      },
+      {
+        id: "n0rb3r7-2022", nickname: "n0rb3r7", country: "RU", role: "lurker", teamId: "outsiders-2022", teamName: "Outsiders",
+        attributes: { aim: 89, imp: 89, clu: 92, con: 90, gs: 91, uti: 82, mov: 83 }
+      }
     ]
   },
   // 25. Team Dignitas (2016)
@@ -394,11 +770,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "DIG",
     accentColor: "#FACC15",
     roster: [
-      { id: "msl-2016", nickname: "MSL", country: "DK", role: "igl", ovr: 86, teamId: "dignitas-2016", teamName: "Team Dignitas" },
-      { id: "k0nfig-2016", nickname: "k0nfig", country: "DK", role: "entry", ovr: 93, teamId: "dignitas-2016", teamName: "Team Dignitas" },
-      { id: "cajunb-2016", nickname: "cajunb", country: "DK", role: "awp", ovr: 89, teamId: "dignitas-2016", teamName: "Team Dignitas" },
-      { id: "magisk-2016", nickname: "Magiskb0Y", country: "DK", role: "rifler", ovr: 94, teamId: "dignitas-2016", teamName: "Team Dignitas" },
-      { id: "rubino-2016", nickname: "RUBINO", country: "NO", role: "support", ovr: 86, teamId: "dignitas-2016", teamName: "Team Dignitas" }
+      {
+        id: "msl-2016", nickname: "MSL", country: "DK", role: "igl", teamId: "dignitas-2016", teamName: "Team Dignitas",
+        attributes: { aim: 81, imp: 83, clu: 85, con: 87, gs: 92, uti: 91, mov: 83 }
+      },
+      {
+        id: "k0nfig-2016", nickname: "k0nfig", country: "DK", role: "entry", teamId: "dignitas-2016", teamName: "Team Dignitas",
+        attributes: { aim: 95, imp: 97, clu: 89, con: 90, gs: 91, uti: 93, mov: 96 }
+      },
+      {
+        id: "cajunb-2016", nickname: "cajunb", country: "DK", role: "awp", teamId: "dignitas-2016", teamName: "Team Dignitas",
+        attributes: { aim: 92, imp: 92, clu: 90, con: 90, gs: 89, uti: 84, mov: 86 }
+      },
+      {
+        id: "magisk-2016", nickname: "Magiskb0Y", country: "DK", role: "rifler", teamId: "dignitas-2016", teamName: "Team Dignitas",
+        attributes: { aim: 97, imp: 96, clu: 94, con: 96, gs: 94, uti: 90, mov: 91 }
+      },
+      {
+        id: "rubino-2016", nickname: "RUBINO", country: "NO", role: "support", teamId: "dignitas-2016", teamName: "Team Dignitas",
+        attributes: { aim: 82, imp: 82, clu: 87, con: 88, gs: 88, uti: 92, mov: 83 }
+      }
     ]
   },
   // 26. Copenhagen Wolves (2014)
@@ -410,11 +801,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "CW",
     accentColor: "#EAB308",
     roster: [
-      { id: "gla1ve-2014", nickname: "gla1ve", country: "DK", role: "igl", ovr: 86, teamId: "copenhagen-2014", teamName: "Copenhagen Wolves" },
-      { id: "pimp-2014", nickname: "Pimp", country: "DK", role: "rifler", ovr: 88, teamId: "copenhagen-2014", teamName: "Copenhagen Wolves" },
-      { id: "kjaerbye-2014", nickname: "Kjaerbye", country: "DK", role: "entry", ovr: 87, teamId: "copenhagen-2014", teamName: "Copenhagen Wolves" },
-      { id: "cajunb-2014", nickname: "cajunb", country: "DK", role: "awp", ovr: 89, teamId: "copenhagen-2014", teamName: "Copenhagen Wolves" },
-      { id: "nico-2014", nickname: "Nico", country: "DK", role: "support", ovr: 83, teamId: "copenhagen-2014", teamName: "Copenhagen Wolves" }
+      {
+        id: "gla1ve-2014", nickname: "gla1ve", country: "DK", role: "igl", teamId: "copenhagen-2014", teamName: "Copenhagen Wolves",
+        attributes: { aim: 81, imp: 83, clu: 85, con: 87, gs: 92, uti: 91, mov: 83 }
+      },
+      {
+        id: "pimp-2014", nickname: "Pimp", country: "DK", role: "rifler", teamId: "copenhagen-2014", teamName: "Copenhagen Wolves",
+        attributes: { aim: 91, imp: 90, clu: 88, con: 90, gs: 88, uti: 84, mov: 85 }
+      },
+      {
+        id: "kjaerbye-2014", nickname: "Kjaerbye", country: "DK", role: "entry", teamId: "copenhagen-2014", teamName: "Copenhagen Wolves",
+        attributes: { aim: 89, imp: 91, clu: 83, con: 84, gs: 85, uti: 87, mov: 90 }
+      },
+      {
+        id: "cajunb-2014", nickname: "cajunb", country: "DK", role: "awp", teamId: "copenhagen-2014", teamName: "Copenhagen Wolves",
+        attributes: { aim: 92, imp: 92, clu: 90, con: 90, gs: 89, uti: 84, mov: 86 }
+      },
+      {
+        id: "nico-2014", nickname: "Nico", country: "DK", role: "support", teamId: "copenhagen-2014", teamName: "Copenhagen Wolves",
+        attributes: { aim: 79, imp: 79, clu: 84, con: 85, gs: 85, uti: 89, mov: 80 }
+      }
     ]
   },
   // 27. Counter Logic Gaming (2015)
@@ -426,11 +832,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "CLG",
     accentColor: "#00A3E0",
     roster: [
-      { id: "tarik-2015", nickname: "tarik", country: "US", role: "entry", ovr: 89, teamId: "clg-2015", teamName: "Counter Logic Gaming" },
-      { id: "jdm64-2015", nickname: "jdm64", country: "US", role: "awp", ovr: 89, teamId: "clg-2015", teamName: "Counter Logic Gaming" },
-      { id: "reltuC-2015", nickname: "reltuC", country: "US", role: "support", ovr: 83, teamId: "clg-2015", teamName: "Counter Logic Gaming" },
-      { id: "hazed-2015", nickname: "hazed", country: "US", role: "rifler", ovr: 85, teamId: "clg-2015", teamName: "Counter Logic Gaming" },
-      { id: "fns-2015", nickname: "FNS", country: "CA", role: "igl", ovr: 82, teamId: "clg-2015", teamName: "Counter Logic Gaming" }
+      {
+        id: "tarik-2015", nickname: "tarik", country: "US", role: "entry", teamId: "clg-2015", teamName: "Counter Logic Gaming",
+        attributes: { aim: 91, imp: 93, clu: 85, con: 86, gs: 87, uti: 89, mov: 92 }
+      },
+      {
+        id: "jdm64-2015", nickname: "jdm64", country: "US", role: "awp", teamId: "clg-2015", teamName: "Counter Logic Gaming",
+        attributes: { aim: 92, imp: 92, clu: 90, con: 90, gs: 89, uti: 84, mov: 86 }
+      },
+      {
+        id: "reltuC-2015", nickname: "reltuC", country: "US", role: "support", teamId: "clg-2015", teamName: "Counter Logic Gaming",
+        attributes: { aim: 79, imp: 79, clu: 84, con: 85, gs: 85, uti: 89, mov: 80 }
+      },
+      {
+        id: "hazed-2015", nickname: "hazed", country: "US", role: "rifler", teamId: "clg-2015", teamName: "Counter Logic Gaming",
+        attributes: { aim: 88, imp: 87, clu: 85, con: 87, gs: 85, uti: 81, mov: 82 }
+      },
+      {
+        id: "fns-2015", nickname: "FNS", country: "CA", role: "igl", teamId: "clg-2015", teamName: "Counter Logic Gaming",
+        attributes: { aim: 77, imp: 79, clu: 81, con: 83, gs: 88, uti: 87, mov: 79 }
+      }
     ]
   },
   // 28. TyLoo (2018)
@@ -442,11 +863,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "TYL",
     accentColor: "#DC2626",
     roster: [
-      { id: "captainmo-2018", nickname: "CaptainMo", country: "CN", role: "igl", ovr: 85, teamId: "tyloo-2018", teamName: "TyLoo" },
-      { id: "somebody-2018", nickname: "somebody", country: "CN", role: "entry", ovr: 89, teamId: "tyloo-2018", teamName: "TyLoo" },
-      { id: "bnteT-2018", nickname: "BnTeT", country: "ID", role: "rifler", ovr: 93, teamId: "tyloo-2018", teamName: "TyLoo" },
-      { id: "xccurate-2018", nickname: "xccurate", country: "ID", role: "awp", ovr: 90, teamId: "tyloo-2018", teamName: "TyLoo" },
-      { id: "dd-2018", nickname: "DD", country: "CN", role: "support", ovr: 84, teamId: "tyloo-2018", teamName: "TyLoo" }
+      {
+        id: "captainmo-2018", nickname: "CaptainMo", country: "CN", role: "igl", teamId: "tyloo-2018", teamName: "TyLoo",
+        attributes: { aim: 80, imp: 82, clu: 84, con: 86, gs: 91, uti: 90, mov: 82 }
+      },
+      {
+        id: "somebody-2018", nickname: "somebody", country: "CN", role: "entry", teamId: "tyloo-2018", teamName: "TyLoo",
+        attributes: { aim: 91, imp: 93, clu: 85, con: 86, gs: 87, uti: 89, mov: 92 }
+      },
+      {
+        id: "bnteT-2018", nickname: "BnTeT", country: "ID", role: "rifler", teamId: "tyloo-2018", teamName: "TyLoo",
+        attributes: { aim: 96, imp: 95, clu: 93, con: 95, gs: 93, uti: 89, mov: 90 }
+      },
+      {
+        id: "xccurate-2018", nickname: "xccurate", country: "ID", role: "awp", teamId: "tyloo-2018", teamName: "TyLoo",
+        attributes: { aim: 93, imp: 93, clu: 91, con: 91, gs: 90, uti: 85, mov: 87 }
+      },
+      {
+        id: "dd-2018", nickname: "DD", country: "CN", role: "support", teamId: "tyloo-2018", teamName: "TyLoo",
+        attributes: { aim: 80, imp: 80, clu: 85, con: 86, gs: 86, uti: 90, mov: 81 }
+      }
     ]
   },
   // 29. The MongolZ (2024)
@@ -458,11 +894,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "MGLZ",
     accentColor: "#B45309",
     roster: [
-      { id: "bzking-2024", nickname: "bzking", country: "MN", role: "igl", ovr: 89, teamId: "mongolz-2024", teamName: "The MongolZ" },
-      { id: "senzu-2024", nickname: "Senzu", country: "MN", role: "rifler", ovr: 93, teamId: "mongolz-2024", teamName: "The MongolZ" },
-      { id: "mzinho-2024", nickname: "mzinho", country: "MN", role: "entry", ovr: 91, teamId: "mongolz-2024", teamName: "The MongolZ" },
-      { id: "910-2024", nickname: "910", country: "MN", role: "awp", ovr: 91, teamId: "mongolz-2024", teamName: "The MongolZ" },
-      { id: "techno4k-2024", nickname: "Techno4K", country: "MN", role: "support", ovr: 88, teamId: "mongolz-2024", teamName: "The MongolZ" }
+      {
+        id: "bzking-2024", nickname: "bzking", country: "MN", role: "igl", teamId: "mongolz-2024", teamName: "The MongolZ",
+        attributes: { aim: 84, imp: 86, clu: 88, con: 90, gs: 95, uti: 94, mov: 86 }
+      },
+      {
+        id: "senzu-2024", nickname: "Senzu", country: "MN", role: "rifler", teamId: "mongolz-2024", teamName: "The MongolZ",
+        attributes: { aim: 96, imp: 95, clu: 93, con: 95, gs: 93, uti: 89, mov: 90 }
+      },
+      {
+        id: "mzinho-2024", nickname: "mzinho", country: "MN", role: "entry", teamId: "mongolz-2024", teamName: "The MongolZ",
+        attributes: { aim: 93, imp: 95, clu: 87, con: 88, gs: 89, uti: 91, mov: 94 }
+      },
+      {
+        id: "910-2024", nickname: "910", country: "MN", role: "awp", teamId: "mongolz-2024", teamName: "The MongolZ",
+        attributes: { aim: 94, imp: 94, clu: 92, con: 92, gs: 91, uti: 86, mov: 88 }
+      },
+      {
+        id: "techno4k-2024", nickname: "Techno4K", country: "MN", role: "support", teamId: "mongolz-2024", teamName: "The MongolZ",
+        attributes: { aim: 84, imp: 84, clu: 89, con: 90, gs: 90, uti: 94, mov: 85 }
+      }
     ]
   },
   // 30. Imperial Esports (2022)
@@ -474,11 +925,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "IMP",
     accentColor: "#10B981",
     roster: [
-      { id: "fallen-2022", nickname: "FalleN", country: "BR", role: "igl", ovr: 91, teamId: "imperial-2022", teamName: "Imperial Esports" },
-      { id: "fer-2022", nickname: "fer", country: "BR", role: "entry", ovr: 93, teamId: "imperial-2022", teamName: "Imperial Esports" },
-      { id: "fnx-2022", nickname: "fnx", country: "BR", role: "support", ovr: 84, teamId: "imperial-2022", teamName: "Imperial Esports" },
-      { id: "boltz-2022", nickname: "boltz", country: "BR", role: "rifler", ovr: 88, teamId: "imperial-2022", teamName: "Imperial Esports" },
-      { id: "vini-2022", nickname: "VINI", country: "BR", role: "lurker", ovr: 89, teamId: "imperial-2022", teamName: "Imperial Esports" }
+      {
+        id: "fallen-2022", nickname: "FalleN", country: "BR", role: "igl", teamId: "imperial-2022", teamName: "Imperial Esports",
+        attributes: { aim: 86, imp: 88, clu: 90, con: 92, gs: 97, uti: 96, mov: 88 }
+      },
+      {
+        id: "fer-2022", nickname: "fer", country: "BR", role: "entry", teamId: "imperial-2022", teamName: "Imperial Esports",
+        attributes: { aim: 95, imp: 97, clu: 89, con: 90, gs: 91, uti: 93, mov: 96 }
+      },
+      {
+        id: "fnx-2022", nickname: "fnx", country: "BR", role: "support", teamId: "imperial-2022", teamName: "Imperial Esports",
+        attributes: { aim: 80, imp: 80, clu: 85, con: 86, gs: 86, uti: 90, mov: 81 }
+      },
+      {
+        id: "boltz-2022", nickname: "boltz", country: "BR", role: "rifler", teamId: "imperial-2022", teamName: "Imperial Esports",
+        attributes: { aim: 91, imp: 90, clu: 88, con: 90, gs: 88, uti: 84, mov: 85 }
+      },
+      {
+        id: "vini-2022", nickname: "VINI", country: "BR", role: "lurker", teamId: "imperial-2022", teamName: "Imperial Esports",
+        attributes: { aim: 90, imp: 90, clu: 93, con: 91, gs: 92, uti: 83, mov: 84 }
+      }
     ]
   },
   // 31. ENCE (2023)
@@ -490,11 +956,26 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "ENCE",
     accentColor: "#85144b",
     roster: [
-      { id: "snappi-2023", nickname: "Snappi", country: "DK", role: "igl", ovr: 89, teamId: "ence-2023", teamName: "ENCE" },
-      { id: "sunpayus-2023", nickname: "SunPayus", country: "ES", role: "awp", ovr: 94, teamId: "ence-2023", teamName: "ENCE" },
-      { id: "dycha-2023", nickname: "dycha", country: "PL", role: "rifler", ovr: 90, teamId: "ence-2023", teamName: "ENCE" },
-      { id: "maden-2023", nickname: "Maden", country: "ME", role: "entry", ovr: 89, teamId: "ence-2023", teamName: "ENCE" },
-      { id: "nertZ-2023", nickname: "NertZ", country: "IL", role: "lurker", ovr: 93, teamId: "ence-2023", teamName: "ENCE" }
+      {
+        id: "snappi-2023", nickname: "Snappi", country: "DK", role: "igl", teamId: "ence-2023", teamName: "ENCE",
+        attributes: { aim: 84, imp: 86, clu: 88, con: 90, gs: 95, uti: 94, mov: 86 }
+      },
+      {
+        id: "sunpayus-2023", nickname: "SunPayus", country: "ES", role: "awp", teamId: "ence-2023", teamName: "ENCE",
+        attributes: { aim: 97, imp: 97, clu: 95, con: 95, gs: 94, uti: 89, mov: 91 }
+      },
+      {
+        id: "dycha-2023", nickname: "dycha", country: "PL", role: "rifler", teamId: "ence-2023", teamName: "ENCE",
+        attributes: { aim: 93, imp: 92, clu: 90, con: 92, gs: 90, uti: 86, mov: 87 }
+      },
+      {
+        id: "maden-2023", nickname: "Maden", country: "ME", role: "entry", teamId: "ence-2023", teamName: "ENCE",
+        attributes: { aim: 91, imp: 93, clu: 85, con: 86, gs: 87, uti: 89, mov: 92 }
+      },
+      {
+        id: "nertZ-2023", nickname: "NertZ", country: "IL", role: "lurker", teamId: "ence-2023", teamName: "ENCE",
+        attributes: { aim: 94, imp: 94, clu: 97, con: 95, gs: 96, uti: 87, mov: 88 }
+      }
     ]
   },
   // 32. Astralis (2017)
@@ -506,13 +987,36 @@ export const CS_DATABASE: HistoricalTeam[] = [
     logoText: "AST",
     accentColor: "#EF4444",
     roster: [
-      { id: "gla1ve-2017", nickname: "gla1ve", country: "DK", role: "igl", ovr: 91, teamId: "astralis-2017", teamName: "Astralis" },
-      { id: "dev1ce-2017", nickname: "dev1ce", country: "DK", role: "awp", ovr: 96, teamId: "astralis-2017", teamName: "Astralis" },
-      { id: "dupreeh-2017", nickname: "dupreeh", country: "DK", role: "entry", ovr: 92, teamId: "astralis-2017", teamName: "Astralis" },
-      { id: "kjaerbye-2017", nickname: "Kjaerbye", country: "DK", role: "rifler", ovr: 93, teamId: "astralis-2017", teamName: "Astralis" },
-      { id: "xyp9x-2017", nickname: "Xyp9x", country: "DK", role: "support", ovr: 91, teamId: "astralis-2017", teamName: "Astralis" }
+      {
+        id: "gla1ve-2017", nickname: "gla1ve", country: "DK", role: "igl", teamId: "astralis-2017", teamName: "Astralis",
+        attributes: { aim: 86, imp: 88, clu: 90, con: 92, gs: 97, uti: 96, mov: 88 }
+      },
+      {
+        id: "dev1ce-2017", nickname: "dev1ce", country: "DK", role: "awp", teamId: "astralis-2017", teamName: "Astralis",
+        attributes: { aim: 99, imp: 99, clu: 97, con: 97, gs: 96, uti: 91, mov: 93 }
+      },
+      {
+        id: "dupreeh-2017", nickname: "dupreeh", country: "DK", role: "entry", teamId: "astralis-2017", teamName: "Astralis",
+        attributes: { aim: 94, imp: 96, clu: 88, con: 89, gs: 90, uti: 92, mov: 95 }
+      },
+      {
+        id: "kjaerbye-2017", nickname: "Kjaerbye", country: "DK", role: "rifler", teamId: "astralis-2017", teamName: "Astralis",
+        attributes: { aim: 96, imp: 95, clu: 93, con: 95, gs: 93, uti: 89, mov: 90 }
+      },
+      {
+        id: "xyp9x-2017", nickname: "Xyp9x", country: "DK", role: "support", teamId: "astralis-2017", teamName: "Astralis",
+        attributes: { aim: 87, imp: 87, clu: 92, con: 93, gs: 93, uti: 97, mov: 88 }
+      }
     ]
   }
 ];
 
-export const ALL_DATABASE_PLAYERS = CS_DATABASE.flatMap(t => t.roster);
+export const CS_DATABASE: HistoricalTeam[] = RAW_CS_DATABASE.map(team => ({
+  ...team,
+  roster: team.roster.map(player => ({
+    ...player,
+    ovr: computePlayerOvr(player.attributes)
+  }))
+}));
+
+export const ALL_DATABASE_PLAYERS: Player[] = CS_DATABASE.flatMap(t => t.roster);

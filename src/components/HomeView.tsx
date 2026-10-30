@@ -291,10 +291,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
 
             {/* Split Roster Showcase: Left Hero Spotlight Card + Right 5-Player Formation Grid */}
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-              {/* Left Side: Large Zoomed Player Card */}
+              {/* Left Side: FIFA-Style Zoomed Player Card */}
               {focusedPlayer && focusedRoleBadge && (
                 <div
-                  className="relative lg:col-span-5 rounded-2xl bg-cs-bg/95 border-2 p-6 sm:p-7 flex flex-col items-center justify-between text-center gap-5 shadow-lg overflow-hidden"
+                  className="relative lg:col-span-5 rounded-2xl bg-cs-bg/95 border-2 p-5 sm:p-6 flex flex-col items-center justify-between text-center gap-4 shadow-lg overflow-hidden"
                   style={{ borderColor: `${activeTeam.accentColor}90` }}
                 >
                   {/* Subtle Watermark Crest Behind Spotlight Player */}
@@ -313,26 +313,58 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                     />
                   </div>
 
-                  <div className="relative z-10 w-full flex items-center justify-between text-xs text-cs-muted border-b border-cs-border pb-3">
-                    <div className="flex items-center gap-2">
-                      <TeamLogo
-                        teamId={activeTeam.id}
-                        name={activeTeam.name}
-                        logoText={activeTeam.logoText}
-                        accentColor={activeTeam.accentColor}
-                        variant="bare"
-                        size="sm"
-                        className="w-5 h-5"
-                      />
-                      <span className="font-bold text-white">{activeTeam.name}</span>
+                  {/* Top FIFA Card Header: OVR + Role/Flag on Left, Team Crest on Right */}
+                  <div className="relative z-10 w-full flex items-start justify-between border-b border-cs-border pb-3">
+                    <div className="flex items-center gap-3 text-left">
+                      <div className="px-3 py-1.5 rounded-xl bg-cs-surface border border-cs-accent/50 text-center">
+                        <div className="font-display font-black text-3xl sm:text-4xl text-cs-accent leading-none tabular-nums">
+                          {focusedPlayer.ovr}
+                        </div>
+                        <div className="text-[10px] font-bold text-cs-muted mt-0.5">
+                          OVR
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`px-2.5 py-0.5 rounded text-xs font-bold text-white shadow-sm ${focusedRoleBadge.bg}`}
+                          >
+                            {focusedRoleBadge.label}
+                          </span>
+                          <div
+                            className="w-6 h-4 rounded overflow-hidden border border-cs-border shrink-0 shadow-sm"
+                            title={focusedPlayer.country}
+                          >
+                            <CountryFlag countryCode={focusedPlayer.country} />
+                          </div>
+                        </div>
+                        <div className="text-xs text-cs-muted">
+                          {focusedRoleBadge.fullName}
+                        </div>
+                      </div>
                     </div>
-                    <span className="font-mono text-cs-accent tabular-nums">
-                      {focusedPlayerIndex + 1} / {activeTeam.roster.length}
-                    </span>
+
+                    <div className="flex flex-col items-end gap-1">
+                      <div className="flex items-center gap-2">
+                        <TeamLogo
+                          teamId={activeTeam.id}
+                          name={activeTeam.name}
+                          logoText={activeTeam.logoText}
+                          accentColor={activeTeam.accentColor}
+                          variant="bare"
+                          size="sm"
+                          className="w-6 h-6"
+                        />
+                        <span className="text-xs font-bold text-white">{activeTeam.shortName}</span>
+                      </div>
+                      <span className="font-mono text-xs text-cs-muted tabular-nums">
+                        {focusedPlayerIndex + 1} / {activeTeam.roster.length}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Extra-Large Portrait Frame */}
-                  <div className="relative z-10 w-44 h-52 sm:w-52 sm:h-60 rounded-2xl overflow-hidden bg-cs-surface border-2 border-cs-border flex items-center justify-center shadow-md">
+                  <div className="relative z-10 w-40 h-48 sm:w-44 sm:h-52 rounded-2xl overflow-hidden bg-cs-surface border-2 border-cs-border flex items-center justify-center shadow-md">
                     <PlayerAvatar
                       playerId={focusedPlayer.id}
                       nickname={focusedPlayer.nickname}
@@ -342,28 +374,48 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                     />
                   </div>
 
-                  {/* Big Readable Nickname & Role/Flag Badges */}
-                  <div className="relative z-10 w-full space-y-3">
-                    <h5 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
+                  {/* Big Readable Nickname */}
+                  <div className="relative z-10 w-full">
+                    <h5 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight">
                       {focusedPlayer.nickname}
                     </h5>
+                  </div>
 
-                    <div className="flex items-center justify-center gap-3">
-                      <div
-                        className="w-8 h-6 rounded-md overflow-hidden border border-cs-border shrink-0 shadow-sm"
-                        title={focusedPlayer.country}
-                      >
-                        <CountryFlag countryCode={focusedPlayer.country} />
-                      </div>
-                      <span
-                        className={`px-3.5 py-1 rounded-lg text-sm font-bold text-white shadow-sm ${focusedRoleBadge.bg}`}
-                      >
-                        {focusedRoleBadge.label}
-                      </span>
-                    </div>
-
-                    <div className="text-xs text-cs-muted pt-1">
-                      {focusedRoleBadge.fullName}
+                  {/* 7 Individual Attributes Grid (FIFA / HLTV Card Style) */}
+                  <div className="relative z-10 w-full pt-3 border-t border-cs-border">
+                    <div className="grid grid-cols-7 gap-1.5">
+                      {(
+                        [
+                          { key: 'AIM', title: 'Mira (Aim)', val: focusedPlayer.attributes.aim },
+                          { key: 'IMP', title: 'Impacto', val: focusedPlayer.attributes.imp },
+                          { key: 'CLU', title: 'Clutch', val: focusedPlayer.attributes.clu },
+                          { key: 'CON', title: 'Consistência', val: focusedPlayer.attributes.con },
+                          { key: 'GS', title: 'Game Sense', val: focusedPlayer.attributes.gs },
+                          { key: 'UTI', title: 'Utilitários (Utility)', val: focusedPlayer.attributes.uti },
+                          { key: 'MOV', title: 'Movimentação (Movement)', val: focusedPlayer.attributes.mov }
+                        ] as const
+                      ).map(stat => {
+                        const valColor =
+                          stat.val >= 90
+                            ? 'text-cs-green'
+                            : stat.val >= 84
+                              ? 'text-cs-accent'
+                              : 'text-white';
+                        return (
+                          <div
+                            key={stat.key}
+                            title={`${stat.title}: ${stat.val}`}
+                            className="p-1.5 rounded-lg bg-cs-surface/90 border border-cs-border flex flex-col items-center justify-center"
+                          >
+                            <span className="text-[10px] font-bold text-cs-muted">
+                              {stat.key}
+                            </span>
+                            <span className={`font-mono font-bold text-sm sm:text-base tabular-nums ${valColor}`}>
+                              {stat.val}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -421,8 +473,13 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                       </div>
 
                       <div className="min-w-0 flex-1 space-y-2">
-                        <div className="font-display font-black text-lg sm:text-xl text-white truncate">
-                          {player.nickname}
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="font-display font-black text-lg sm:text-xl text-white truncate">
+                            {player.nickname}
+                          </div>
+                          <span className="px-2 py-0.5 rounded-md bg-cs-bg border border-cs-border font-mono font-bold text-xs text-cs-accent tabular-nums shrink-0">
+                            {player.ovr}
+                          </span>
                         </div>
 
                         <div className="flex items-center gap-2">
