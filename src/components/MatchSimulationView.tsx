@@ -236,14 +236,14 @@ export const MatchSimulationView: React.FC<MatchSimulationViewProps> = ({
           <div className="relative grid grid-cols-[140px_180px_140px] sm:grid-cols-[160px_220px_160px] items-center justify-items-center">
             {/* User Team */}
             <div className="flex flex-col items-center gap-2 text-center w-full">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-cs-green p-1 flex items-center justify-center bg-cs-bg shadow-sm shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-cs-green p-1 flex items-center justify-center bg-cs-bg shadow-sm shrink-0">
                 <TeamLogo
                   teamId={userTeam.id}
                   name={userTeam.name}
                   logoText={userTeam.logoText}
                   accentColor={userTeam.accentColor}
                   size="lg"
-                  className="w-full h-full rounded-full"
+                  className="w-full h-full"
                 />
               </div>
               <span className="font-bold text-base sm:text-lg text-cs-green max-w-[140px] truncate block">
@@ -272,14 +272,14 @@ export const MatchSimulationView: React.FC<MatchSimulationViewProps> = ({
 
             {/* Opponent Team */}
             <div className="flex flex-col items-center gap-2 text-center w-full">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-cs-border p-1 flex items-center justify-center bg-cs-bg shadow-sm shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-cs-border p-1 flex items-center justify-center bg-cs-bg shadow-sm shrink-0">
                 <TeamLogo
                   teamId={opponentTeam.id}
                   name={opponentTeam.name}
                   logoText={opponentTeam.logoText}
                   accentColor={opponentTeam.accentColor}
                   size="lg"
-                  className="w-full h-full rounded-full"
+                  className="w-full h-full"
                 />
               </div>
               <span className="font-bold text-base sm:text-lg text-cs-text max-w-[140px] truncate block">

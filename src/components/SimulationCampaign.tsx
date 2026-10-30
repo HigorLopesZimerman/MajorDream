@@ -590,7 +590,7 @@ export const SimulationCampaign: React.FC<SimulationCampaignProps> = ({
                       logoText={team.logoText}
                       accentColor={team.accentColor}
                       size="sm"
-                      className="w-6 h-6 rounded-full shrink-0"
+                      className="w-6 h-6 shrink-0"
                     />
                     <span className="text-xs font-bold truncate">{team.name}</span>
                   </div>
@@ -628,7 +628,7 @@ export const SimulationCampaign: React.FC<SimulationCampaignProps> = ({
                       logoText={team.logoText}
                       accentColor={team.accentColor}
                       size="sm"
-                      className="w-6 h-6 rounded-full shrink-0"
+                      className="w-6 h-6 shrink-0"
                     />
                     <span className="text-xs font-semibold truncate">{team.name}</span>
                   </div>
@@ -695,7 +695,7 @@ export const SimulationCampaign: React.FC<SimulationCampaignProps> = ({
                   logoText={t1.logoText}
                   accentColor={t1.accentColor}
                   size="sm"
-                  className="w-5 h-5 rounded-full shrink-0"
+                  className="w-5 h-5 shrink-0"
                 />
                 <span className={`text-xs font-bold truncate ${t1.isUser ? 'text-cs-green' : ''}`}>
                   {t1.name}
@@ -730,7 +730,7 @@ export const SimulationCampaign: React.FC<SimulationCampaignProps> = ({
                   logoText={t2.logoText}
                   accentColor={t2.accentColor}
                   size="sm"
-                  className="w-5 h-5 rounded-full shrink-0"
+                  className="w-5 h-5 shrink-0"
                 />
                 <span className={`text-xs font-bold truncate ${t2.isUser ? 'text-cs-green' : ''}`}>
                   {t2.name}
@@ -797,7 +797,7 @@ export const SimulationCampaign: React.FC<SimulationCampaignProps> = ({
               logoText={champ.logoText}
               accentColor={champ.accentColor}
               size="lg"
-              className="w-16 h-16 rounded-full"
+              className="w-16 h-16"
             />
             <div className="text-left">
               <h2 className="text-3xl sm:text-4xl font-display font-black text-white">

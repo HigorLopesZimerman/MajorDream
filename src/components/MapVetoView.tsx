@@ -138,7 +138,7 @@ export const MapVetoView: React.FC<MapVetoViewProps> = ({
             logoText={userTeam.logoText}
             accentColor={userTeam.accentColor}
             size="sm"
-            className="w-8 h-8 rounded-full"
+            className="w-8 h-8"
           />
           <span className="font-bold text-sm text-cs-green">
             {userTeam.name}
@@ -157,7 +157,7 @@ export const MapVetoView: React.FC<MapVetoViewProps> = ({
             logoText={opponentTeam.logoText}
             accentColor={opponentTeam.accentColor}
             size="sm"
-            className="w-8 h-8 rounded-full"
+            className="w-8 h-8"
           />
         </div>
       </div>

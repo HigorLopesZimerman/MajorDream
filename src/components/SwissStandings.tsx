@@ -20,7 +20,7 @@ export const SwissStandings: React.FC<SwissStandingsProps> = ({
   const renderTeamSlot = (team?: TournamentTeam) => {
     if (!team) {
       return (
-        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-dashed border-cs-border bg-cs-bg/60 flex items-center justify-center shrink-0" />
+        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-dashed border-cs-border bg-cs-bg/60 flex items-center justify-center shrink-0" />
       );
     }
 
@@ -30,7 +30,7 @@ export const SwissStandings: React.FC<SwissStandingsProps> = ({
       <div
         key={team.id}
         title={`${team.name} (${team.wins}-${team.losses})`}
-        className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors p-0.5 shrink-0 ${
+        className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center transition-colors p-0.5 shrink-0 ${
           isUser
             ? 'ring-2 ring-cs-green shadow-md z-10'
             : 'border border-cs-border hover:border-cs-accent'
@@ -42,7 +42,7 @@ export const SwissStandings: React.FC<SwissStandingsProps> = ({
           logoText={team.logoText}
           accentColor={team.accentColor}
           size="sm"
-          className="w-full h-full rounded-full"
+          className="w-full h-full"
         />
       </div>
     );

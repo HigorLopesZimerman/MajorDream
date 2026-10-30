@@ -70,7 +70,7 @@ export const TeamLogo: React.FC<TeamLogoProps> = ({
           boxShadow: `0 0 12px -2px ${accentColor}25`
         }}
       >
-        <div className="w-full h-full flex items-center justify-center bg-black/80 rounded-full border border-emerald-500/50">
+        <div className="w-full h-full flex items-center justify-center bg-black/80 rounded-xl border border-emerald-500/50">
           <svg aria-hidden="true" viewBox="0 0 24 24" className="w-6 h-6 text-emerald-400" fill="currentColor">
             <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" />
           </svg>

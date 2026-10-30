@@ -95,7 +95,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
           logoText={team.logoText}
           accentColor={team.accentColor}
           size="sm"
-          className="w-8 h-8 rounded-full shrink-0"
+          className="w-8 h-8 shrink-0"
         />
         <div className="text-left">
           <div className="flex items-center gap-2">
