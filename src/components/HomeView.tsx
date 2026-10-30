@@ -403,6 +403,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                         );
                       })}
                     </div>
+                    <p className="mt-2.5 text-[10px] text-cs-muted leading-relaxed">
+                      AIM = Mira · IMP = Impacto · CLU = Clutch · CON = Consistência · GS = Game Sense · UTI = Utilitários · MOV = Movimentação
+                    </p>
                   </div>
                 </div>
               )}
