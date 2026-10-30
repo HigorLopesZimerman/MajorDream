@@ -12,24 +12,17 @@ describe('Major Dream - CS Database Validation', () => {
     expect(teamIds.size).toBe(CS_DATABASE.length);
   });
 
-  it('ensures every team has a valid unique ID, official name, shortName, season, and period', () => {
+  it('ensures every team has a valid unique ID, official name, shortName, year, logoText, and accentColor', () => {
     for (const team of CS_DATABASE) {
       expect(team.id).toBeDefined();
       expect(team.id.trim().length).toBeGreaterThan(0);
       expect(team.name).toBeDefined();
       expect(team.name.trim().length).toBeGreaterThan(0);
       expect(team.shortName).toBeDefined();
-      expect(team.shortName?.trim().length).toBeGreaterThan(0);
-      expect(team.season).toBeDefined();
-      expect(team.era).toBeDefined();
-      expect(team.lineupYear).toBeDefined();
-      expect(typeof team.lineupYear).toBe('number');
-      expect(typeof team.isHistorical).toBe('boolean');
-      expect(Array.isArray(team.tags)).toBe(true);
-      expect(team.tags.length).toBeGreaterThan(0);
-      expect(['Americas', 'Europe', 'Asia-Pacific']).toContain(team.region);
-      expect(team.dataSource).toBeDefined();
-      expect(team.verifiedDate).toBeDefined();
+      expect(team.shortName.trim().length).toBeGreaterThan(0);
+      expect(typeof team.year).toBe('number');
+      expect(team.logoText).toBeDefined();
+      expect(team.accentColor).toBeDefined();
     }
   });
 
@@ -54,15 +47,10 @@ describe('Major Dream - CS Database Validation', () => {
         expect(player.teamId).toBe(team.id);
         expect(player.nickname).toBeDefined();
         expect(player.nickname.trim().length).toBeGreaterThan(0);
-        expect(player.realName).toBeDefined();
         expect(player.country).toBeDefined();
         expect(player.role).toBeDefined();
         expect(player.ovr).toBeGreaterThanOrEqual(70);
         expect(player.ovr).toBeLessThanOrEqual(99);
-        expect(player.period).toBeDefined();
-        expect(player.period!.length).toBeGreaterThan(0);
-        expect(player.dataSource).toBeDefined();
-        expect(player.verifiedDate).toBeDefined();
       }
     }
   });

@@ -325,7 +325,7 @@ export const FinalResultsView: React.FC<FinalResultsViewProps> = ({
                         />
                       </div>
 
-                      {/* Info: Nickname & Team/Era */}
+                      {/* Info: Nickname & Team */}
                       <div className="text-left min-w-0">
                         <div className="flex items-center gap-2">
                           <h4 className="font-display font-black text-base text-white truncate">
@@ -333,7 +333,7 @@ export const FinalResultsView: React.FC<FinalResultsViewProps> = ({
                           </h4>
                         </div>
                         <span className="text-[11px] text-cs-muted truncate block">
-                          {player.teamName} · {player.era}
+                          {player.teamName}
                         </span>
                       </div>
                     </div>
@@ -341,7 +341,7 @@ export const FinalResultsView: React.FC<FinalResultsViewProps> = ({
                     {/* Meta: Flag, Role badge & OVR score */}
                     <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                       {/* Nationality Flag */}
-                      <div className="w-7 h-5 rounded overflow-hidden shrink-0 hidden sm:block" title={player.countryName || player.country}>
+                      <div className="w-7 h-5 rounded overflow-hidden shrink-0 hidden sm:block" title={player.country}>
                         <CountryFlag countryCode={player.country} />
                       </div>
 

@@ -687,11 +687,11 @@ export function simulateCompetitiveMap(
   const getFallbackRoster = (team: TournamentTeam) => {
     if (team.roster && team.roster.length > 0) return team.roster.slice(0, 5);
     return [
-      { id: 'bot-1', nickname: 'Entry Bot', country: 'SE', role: 'entry' as const, ovr: team.ovr, teamId: team.id, teamName: team.name, era: '2024', tier: 'contender' as const },
-      { id: 'bot-2', nickname: 'AWP Bot', country: 'FR', role: 'awp' as const, ovr: team.ovr, teamId: team.id, teamName: team.name, era: '2024', tier: 'contender' as const },
-      { id: 'bot-3', nickname: 'IGL Bot', country: 'DK', role: 'igl' as const, ovr: team.ovr, teamId: team.id, teamName: team.name, era: '2024', tier: 'contender' as const },
-      { id: 'bot-4', nickname: 'Rifle Bot', country: 'US', role: 'rifler' as const, ovr: team.ovr, teamId: team.id, teamName: team.name, era: '2024', tier: 'contender' as const },
-      { id: 'bot-5', nickname: 'Lurk Bot', country: 'UA', role: 'lurker' as const, ovr: team.ovr, teamId: team.id, teamName: team.name, era: '2024', tier: 'contender' as const },
+      { id: 'bot-1', nickname: 'Entry Bot', country: 'SE', role: 'entry' as const, ovr: team.ovr, teamId: team.id, teamName: team.name },
+      { id: 'bot-2', nickname: 'AWP Bot', country: 'FR', role: 'awp' as const, ovr: team.ovr, teamId: team.id, teamName: team.name },
+      { id: 'bot-3', nickname: 'IGL Bot', country: 'DK', role: 'igl' as const, ovr: team.ovr, teamId: team.id, teamName: team.name },
+      { id: 'bot-4', nickname: 'Rifle Bot', country: 'US', role: 'rifler' as const, ovr: team.ovr, teamId: team.id, teamName: team.name },
+      { id: 'bot-5', nickname: 'Lurk Bot', country: 'UA', role: 'lurker' as const, ovr: team.ovr, teamId: team.id, teamName: team.name },
     ];
   };
 

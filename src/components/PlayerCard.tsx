@@ -133,7 +133,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
         </div>
 
         {/* Quad 2: Country Flag */}
-        <div className="h-12 rounded-xl bg-cs-surface border border-cs-border flex items-center justify-center p-1.5 overflow-hidden" title={player.countryName || player.country}>
+        <div className="h-12 rounded-xl bg-cs-surface border border-cs-border flex items-center justify-center p-1.5 overflow-hidden" title={player.country}>
           <div className="w-full h-full rounded-md overflow-hidden flex items-center justify-center">
             <CountryFlag countryCode={player.country} />
           </div>

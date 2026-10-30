@@ -31,14 +31,13 @@ app.get('/api/teams', (_req: Request, res: Response) => {
 
 // 3. Search and Filter Players
 app.get('/api/players', (req: Request, res: Response) => {
-  const { query, role, era } = req.query;
+  const { query, role } = req.query;
   let results = [...ALL_PLAYERS];
 
   if (typeof query === 'string' && query.trim()) {
     const q = query.toLowerCase();
     results = results.filter(p => 
       p.nickname.toLowerCase().includes(q) || 
-      p.realName.toLowerCase().includes(q) ||
       p.teamName.toLowerCase().includes(q)
     );
   }
@@ -47,37 +46,13 @@ app.get('/api/players', (req: Request, res: Response) => {
     results = results.filter(p => p.role === role);
   }
 
-  if (typeof era === 'string' && era !== 'all') {
-    results = results.filter(p => p.eraGroup === era);
-  }
-
   res.json({
     total: results.length,
     players: results
   });
 });
 
-// 4. Daily Secret Guess Player endpoint (Deterministic)
-app.get('/api/daily-pro', (_req: Request, res: Response) => {
-  const today = new Date().toISOString().slice(0, 10);
-  let hash = 0;
-  for (let i = 0; i < today.length; i++) {
-    hash = (hash << 5) - hash + today.charCodeAt(i);
-    hash |= 0;
-  }
-  const idx = Math.abs(hash) % ALL_PLAYERS.length;
-  const target = ALL_PLAYERS[idx];
-
-  res.json({
-    date: today,
-    targetId: target.id,
-    era: target.era,
-    role: target.role,
-    country: target.country
-  });
-});
-
-// 5. Active Duty Maps
+// 4. Active Duty Maps
 app.get('/api/maps', (_req: Request, res: Response) => {
   res.json({
     maps: ACTIVE_MAPS

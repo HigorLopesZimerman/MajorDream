@@ -1,55 +1,24 @@
 export type Role = 'igl' | 'awp' | 'entry' | 'rifler' | 'lurker' | 'support';
-export type Era = '1.6' | 'Source' | '2013-2016' | '2017-2019' | '2020-2022' | 'CS2';
 
 export interface Player {
   id: string;             // e.g. "coldzera-2016"
   nickname: string;       // "coldzera"
-  realName: string;       // "Marcelo David"
   country: string;        // "BR", "UA", "DK", "FR", "BA", etc.
-  countryName: string;    // "Brasil"
   role: Role;
   ovr: number;            // 60-99
-  era: string;            // "2016"
-  eraGroup: Era;
-  teamId: string;         // "luminosity-2016"
+  teamId: string;         // "lg-2016"
   teamName: string;       // "Luminosity Gaming"
-  note?: string;          // e.g. "MVP MLG Columbus 2016, #1 HLTV"
-  avatarUrl?: string;     // photo / avatar representation
-  period?: string;        // e.g. "2016 Season (MLG Columbus)"
-  dataSource?: string;    // e.g. "HLTV.org / Liquipedia CS"
-  verifiedDate?: string;  // e.g. "2026-10-28"
-  stats: {
-    rating: number;       // e.g. 1.28
-    impact: number;       // e.g. 1.34
-    adr: number;          // e.g. 88.5
-    hsPercentage: number; // e.g. 51
-    clutchRating?: number;// e.g. 88
-    majorsWon?: number;   // e.g. 2
-  };
 }
 
-export type TeamRegion = 'Americas' | 'Europe' | 'Asia-Pacific';
-
 export interface HistoricalTeam {
-  id: string;             // "luminosity-2016"
+  id: string;             // "lg-2016"
   name: string;           // "Luminosity Gaming"
-  shortName?: string;     // "LG"
+  shortName: string;      // "LG"
   year: number;           // 2016
-  lineupYear: number;     // 2016 (ano da lineup)
-  isHistorical: boolean;  // true se for time lendário/histórico, false se for formação recente
-  season?: string;        // "2016 (MLG Columbus Major Champions)"
-  era: Era;
-  country?: string;       // "BR", "DK", "EU", etc.
-  region: TeamRegion;     // "Americas" | "Europe" | "Asia-Pacific"
-  tags: string[];         // e.g. ["2016", "historico", "americas", "major-winner"]
-  coach?: string;         // e.g. "zews (Wilton Prado)"
   logoText: string;       // "LG"
   accentColor: string;    // "#00A3E0"
-  roster: Player[];
   description?: string;
-  majorTrophies?: string[];
-  dataSource?: string;    // e.g. "HLTV.org / Liquipedia CS"
-  verifiedDate?: string;  // e.g. "2026-10-28"
+  roster: Player[];
 }
 
 export interface MapData {
@@ -59,16 +28,11 @@ export interface MapData {
   imageBg: string;
 }
 
-export interface DraftSlot {
-  slotNumber: number;     // 1 to 5
-  player: Player | null;
-}
-
 export type SynergyType = 'full' | 'no_lurker' | 'no_igl' | 'broken' | 'neutral';
 
 export interface SynergyResult {
   type: SynergyType;
-  scoreBonus: number;     // e.g. +3, 0, -2, -5
+  scoreBonus: number;     // e.g. +2, 0, -3, -5
   labelKey: string;
   descriptionKey: string;
 }
@@ -85,7 +49,7 @@ export interface SimulationRoundResult {
 export interface SimulatedMatchResult {
   id: string;
   stage: 'swiss' | 'playoff';
-  roundName: string;       // "Rodada 1 (0-0)" or "Quartas de Final"
+  roundName: string;
   mapName: string;
   opponentTeam: {
     name: string;
@@ -123,46 +87,16 @@ export interface CampaignState {
   synergy: SynergyResult;
   mapPoints: Record<string, number>;
   baseProficiencies?: Record<string, number>;
-  // Swiss Stage: 16 teams, swiss rounds
   swissRound: number;
   userWins: number;
   userLosses: number;
   swissMatches: SimulatedMatchResult[];
   isSwissFinished: boolean;
   isQualifiedForPlayoffs: boolean;
-  // Playoff Stage: Bo3
   playoffStage: 'quarters' | 'semis' | 'finals' | 'champion' | 'eliminated' | 'none';
   playoffMatches: SimulatedMatchResult[];
   isChampion: boolean;
   isInvictus: boolean;
   majorMvp: Player | null;
   status: 'drafting' | 'map_allocation' | 'swiss' | 'playoffs' | 'completed';
-}
-
-export interface BingoCell {
-  id: string;
-  condition: string;
-  conditionDescription: string;
-  filled: boolean;
-  assignedPlayer?: Player;
-  check: (player: Player) => boolean;
-}
-
-export interface GuessChallenge {
-  date: string;
-  targetPlayer: Player;
-  maxAttempts: number;
-  attempts: {
-    player: Player;
-    matchingFields: {
-      team: boolean;
-      country: boolean;
-      role: boolean;
-      era: 'higher' | 'lower' | 'equal';
-      ovr: 'higher' | 'lower' | 'equal';
-      rating: 'higher' | 'lower' | 'equal';
-    };
-  }[];
-  isComplete: boolean;
-  isWon: boolean;
 }

@@ -5,9 +5,6 @@ import { HomeView } from './components/HomeView';
 import { DraftFlow } from './components/DraftFlow';
 import { MapAdvantage } from './components/MapAdvantage';
 import { SimulationCampaign } from './components/SimulationCampaign';
-import { GuessProGame } from './components/GuessProGame';
-import { CSBingoGame } from './components/CSBingoGame';
-import { HistoryStats } from './components/HistoryStats';
 import { CampaignState, Player } from './types';
 import { calculateTeamOvr, calculateSynergy } from './utils/simulationEngine';
 import { resetDraftMapSession } from './utils/mapProficiency';
@@ -16,7 +13,6 @@ export const AppContent: React.FC = () => {
   // Fresh state on every page load/refresh (just like 12a0.com)
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
   const [activeCampaign, setActiveCampaign] = useState<CampaignState | null>(null);
-  const [campaignHistory, setCampaignHistory] = useState<CampaignState[]>([]);
 
   const clearSavedMajors = () => {
     localStorage.removeItem('draftarena_active_campaign');
@@ -94,9 +90,6 @@ export const AppContent: React.FC = () => {
   // Update campaign as matches are played
   const handleUpdateCampaign = (updated: CampaignState) => {
     setActiveCampaign(updated);
-    if (updated.status === 'completed') {
-      setCampaignHistory(prev => [updated, ...prev]);
-    }
   };
 
   // Restart campaign
@@ -144,10 +137,6 @@ export const AppContent: React.FC = () => {
             )}
           </>
         )}
-
-        {currentTab === 'guess' && <GuessProGame />}
-        {currentTab === 'bingo' && <CSBingoGame />}
-        {currentTab === 'history' && <HistoryStats savedCampaigns={campaignHistory} />}
       </main>
 
       <footer className="border-t border-cs-border/60 py-6 text-center text-xs text-cs-muted bg-cs-surface/60">
