@@ -61,14 +61,9 @@ export const AppContent: React.FC = () => {
       swissRound: 1,
       userWins: 0,
       userLosses: 0,
-      swissMatches: [],
       isSwissFinished: false,
       isQualifiedForPlayoffs: false,
-      playoffStage: 'none',
-      playoffMatches: [],
       isChampion: false,
-      isInvictus: false,
-      majorMvp: null,
       status: 'swiss'
     };
 

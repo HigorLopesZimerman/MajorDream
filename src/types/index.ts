@@ -37,48 +37,6 @@ export interface SynergyResult {
   descriptionKey: string;
 }
 
-export interface SimulationRoundResult {
-  roundNumber: number;
-  winner: 'user' | 'opponent';
-  userRoundScore: number;
-  opponentRoundScore: number;
-  highlightText: string;
-  isPistol?: boolean;
-}
-
-export interface SimulatedMatchResult {
-  id: string;
-  stage: 'swiss' | 'playoff';
-  roundName: string;
-  mapName: string;
-  opponentTeam: {
-    name: string;
-    ovr: number;
-    logoText: string;
-    roster: Player[];
-  };
-  userScore: number;
-  opponentScore: number;
-  isOvertime: boolean;
-  won: boolean;
-  mvp: {
-    nickname: string;
-    team: 'user' | 'opponent';
-    kd: string;
-    rating: number;
-  };
-  playerPerformances: {
-    playerId: string;
-    nickname: string;
-    kills: number;
-    deaths: number;
-    assists: number;
-    rating: number;
-    isMvp: boolean;
-  }[];
-  roundsHistory: SimulationRoundResult[];
-}
-
 export interface CampaignState {
   campaignId: string;
   teamName: string;
@@ -90,13 +48,8 @@ export interface CampaignState {
   swissRound: number;
   userWins: number;
   userLosses: number;
-  swissMatches: SimulatedMatchResult[];
   isSwissFinished: boolean;
   isQualifiedForPlayoffs: boolean;
-  playoffStage: 'quarters' | 'semis' | 'finals' | 'champion' | 'eliminated' | 'none';
-  playoffMatches: SimulatedMatchResult[];
   isChampion: boolean;
-  isInvictus: boolean;
-  majorMvp: Player | null;
   status: 'drafting' | 'map_allocation' | 'swiss' | 'playoffs' | 'completed';
 }
