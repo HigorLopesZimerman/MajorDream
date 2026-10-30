@@ -8,6 +8,7 @@ interface TeamLogoProps {
   accentColor: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'boxed' | 'bare';
 }
 
 export const TeamLogo: React.FC<TeamLogoProps> = ({
@@ -16,7 +17,8 @@ export const TeamLogo: React.FC<TeamLogoProps> = ({
   logoText,
   accentColor,
   className = '',
-  size = 'md'
+  size = 'md',
+  variant = 'boxed'
 }) => {
   const candidates = getTeamLogoCandidates(teamId);
   const [candidateIndex, setCandidateIndex] = useState(0);
@@ -34,6 +36,29 @@ export const TeamLogo: React.FC<TeamLogoProps> = ({
 
   const dim = sizeMap[size];
   const currentLogoUrl = candidates[candidateIndex];
+
+  if (variant === 'bare' && teamId !== 'user-team') {
+    return (
+      <div
+        className={`relative flex items-center justify-center shrink-0 select-none ${dim} ${className}`}
+        title={name}
+      >
+        {currentLogoUrl ? (
+          <img
+            src={currentLogoUrl}
+            alt={name}
+            onError={() => setCandidateIndex(prev => prev + 1)}
+            className="w-full h-full object-contain"
+            decoding="async"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center font-display font-black text-white">
+            {logoText}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   if (teamId === 'user-team') {
     return (

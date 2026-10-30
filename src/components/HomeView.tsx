@@ -218,33 +218,53 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
 
         {/* Featured Team Spotlight Deck */}
         {activeTeam && (
-          <div className="p-5 sm:p-7 bg-gradient-to-b from-cs-card/70 to-cs-surface border-b border-cs-border space-y-6">
+          <div className="relative p-5 sm:p-7 bg-gradient-to-b from-cs-card/70 to-cs-surface border-b border-cs-border space-y-6 overflow-hidden">
+            {/* Ambient Watermark Team Logo in Background */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-6 right-8 w-56 h-56 sm:w-72 sm:h-72 opacity-[0.045] select-none hidden md:flex items-center justify-center"
+            >
+              <TeamLogo
+                teamId={activeTeam.id}
+                name={activeTeam.name}
+                logoText={activeTeam.logoText}
+                accentColor={activeTeam.accentColor}
+                variant="bare"
+                size="xl"
+                className="w-full h-full"
+              />
+            </div>
+
             {/* Team Header Row */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+              <div className="flex items-center gap-5">
                 <div
-                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-cs-bg border-2 p-2 flex items-center justify-center shrink-0 shadow-md"
-                  style={{ borderColor: activeTeam.accentColor }}
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-cs-bg border-2 p-3 flex items-center justify-center shrink-0"
+                  style={{
+                    borderColor: activeTeam.accentColor === '#000000' ? '#F59E0B' : activeTeam.accentColor,
+                    boxShadow: `0 0 28px -6px ${activeTeam.accentColor === '#000000' ? '#F59E0B45' : `${activeTeam.accentColor}50`}`
+                  }}
                 >
                   <TeamLogo
                     teamId={activeTeam.id}
                     name={activeTeam.name}
                     logoText={activeTeam.logoText}
                     accentColor={activeTeam.accentColor}
-                    size="lg"
+                    variant="bare"
+                    size="xl"
                     className="w-full h-full"
                   />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-2 py-0.5 rounded-md bg-cs-accent text-black font-bold text-xs">
+                    <span className="px-2.5 py-0.5 rounded-md bg-cs-accent text-black font-bold text-xs">
                       {activeTeam.year}
                     </span>
-                    <span className="px-2 py-0.5 rounded-md bg-cs-surface border border-cs-border text-cs-muted font-mono text-xs">
+                    <span className="px-2.5 py-0.5 rounded-md bg-cs-surface border border-cs-border text-cs-muted font-mono text-xs">
                       {activeTeam.shortName}
                     </span>
                   </div>
-                  <h4 className="font-display font-black text-2xl sm:text-3xl text-white">
+                  <h4 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
                     {activeTeam.name}
                   </h4>
                 </div>
@@ -270,22 +290,49 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
             </div>
 
             {/* Split Roster Showcase: Left Hero Spotlight Card + Right 5-Player Formation Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
               {/* Left Side: Large Zoomed Player Card */}
               {focusedPlayer && focusedRoleBadge && (
                 <div
-                  className="lg:col-span-5 rounded-2xl bg-cs-bg/90 border-2 p-6 sm:p-7 flex flex-col items-center justify-between text-center gap-5 shadow-lg"
-                  style={{ borderColor: `${activeTeam.accentColor}90` }}
+                  className="relative lg:col-span-5 rounded-2xl bg-cs-bg/95 border-2 p-6 sm:p-7 flex flex-col items-center justify-between text-center gap-5 shadow-lg overflow-hidden"
+                  style={{ borderColor: activeTeam.accentColor === '#000000' ? '#F59E0B70' : `${activeTeam.accentColor}90` }}
                 >
-                  <div className="w-full flex items-center justify-between text-xs text-cs-muted border-b border-cs-border pb-3">
-                    <span className="font-bold text-white">{activeTeam.name}</span>
+                  {/* Subtle Watermark Crest Behind Spotlight Player */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.06] select-none"
+                  >
+                    <TeamLogo
+                      teamId={activeTeam.id}
+                      name={activeTeam.name}
+                      logoText={activeTeam.logoText}
+                      accentColor={activeTeam.accentColor}
+                      variant="bare"
+                      size="xl"
+                      className="w-64 h-64"
+                    />
+                  </div>
+
+                  <div className="relative z-10 w-full flex items-center justify-between text-xs text-cs-muted border-b border-cs-border pb-3">
+                    <div className="flex items-center gap-2">
+                      <TeamLogo
+                        teamId={activeTeam.id}
+                        name={activeTeam.name}
+                        logoText={activeTeam.logoText}
+                        accentColor={activeTeam.accentColor}
+                        variant="bare"
+                        size="sm"
+                        className="w-5 h-5"
+                      />
+                      <span className="font-bold text-white">{activeTeam.name}</span>
+                    </div>
                     <span className="font-mono text-cs-accent tabular-nums">
                       {focusedPlayerIndex + 1} / {activeTeam.roster.length}
                     </span>
                   </div>
 
                   {/* Extra-Large Portrait Frame */}
-                  <div className="relative w-44 h-52 sm:w-52 sm:h-60 rounded-2xl overflow-hidden bg-cs-surface border-2 border-cs-border flex items-center justify-center shadow-md">
+                  <div className="relative z-10 w-44 h-52 sm:w-52 sm:h-60 rounded-2xl overflow-hidden bg-cs-surface border-2 border-cs-border flex items-center justify-center shadow-md">
                     <PlayerAvatar
                       playerId={focusedPlayer.id}
                       nickname={focusedPlayer.nickname}
@@ -296,7 +343,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                   </div>
 
                   {/* Big Readable Nickname & Role/Flag Badges */}
-                  <div className="w-full space-y-3">
+                  <div className="relative z-10 w-full space-y-3">
                     <h5 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
                       {focusedPlayer.nickname}
                     </h5>
