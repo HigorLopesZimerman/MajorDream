@@ -241,8 +241,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                 <div
                   className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-cs-bg border-2 p-3 flex items-center justify-center shrink-0"
                   style={{
-                    borderColor: activeTeam.accentColor === '#000000' ? '#F59E0B' : activeTeam.accentColor,
-                    boxShadow: `0 0 28px -6px ${activeTeam.accentColor === '#000000' ? '#F59E0B45' : `${activeTeam.accentColor}50`}`
+                    borderColor: activeTeam.accentColor,
+                    boxShadow: `0 0 28px -6px ${activeTeam.accentColor}50`
                   }}
                 >
                   <TeamLogo
@@ -295,7 +295,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
               {focusedPlayer && focusedRoleBadge && (
                 <div
                   className="relative lg:col-span-5 rounded-2xl bg-cs-bg/95 border-2 p-6 sm:p-7 flex flex-col items-center justify-between text-center gap-5 shadow-lg overflow-hidden"
-                  style={{ borderColor: activeTeam.accentColor === '#000000' ? '#F59E0B70' : `${activeTeam.accentColor}90` }}
+                  style={{ borderColor: `${activeTeam.accentColor}90` }}
                 >
                   {/* Subtle Watermark Crest Behind Spotlight Player */}
                   <div

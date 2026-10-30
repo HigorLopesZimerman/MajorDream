@@ -264,7 +264,7 @@ export const CS_DATABASE: HistoricalTeam[] = [
     shortName: "FURIA",
     year: 2019,
     logoText: "FUR",
-    accentColor: "#000000",
+    accentColor: "#F59E0B",
     roster: [
       { id: "arT-2019", nickname: "arT", country: "BR", role: "igl", ovr: 90, teamId: "furia-2019", teamName: "FURIA Esports" },
       { id: "yuurih-2019", nickname: "yuurih", country: "BR", role: "rifler", ovr: 93, teamId: "furia-2019", teamName: "FURIA Esports" },
