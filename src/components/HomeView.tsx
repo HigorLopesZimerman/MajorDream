@@ -26,22 +26,30 @@ const roleBadgeConfig: Record<string, { label: string; fullName: string; bg: str
 
 export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
   const { t } = useI18n();
+  const [displayTeams] = useState<HistoricalTeam[]>(() => {
+    const arr = [...HISTORICAL_TEAMS];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  });
   const [activeIndex, setActiveIndex] = useState(0);
   const [focusedPlayerIndex, setFocusedPlayerIndex] = useState(0);
   const [isAutoCycling, setIsAutoCycling] = useState(true);
 
-  const activeTeam: HistoricalTeam = HISTORICAL_TEAMS[activeIndex] || HISTORICAL_TEAMS[0];
+  const activeTeam: HistoricalTeam = displayTeams[activeIndex] || displayTeams[0];
   const focusedPlayer = activeTeam.roster[focusedPlayerIndex] || activeTeam.roster[0];
 
   // Auto-cycle spotlight team every 7s unless paused by user
   useEffect(() => {
-    if (!isAutoCycling || HISTORICAL_TEAMS.length <= 1) return;
+    if (!isAutoCycling || displayTeams.length <= 1) return;
     const timer = setInterval(() => {
-      setActiveIndex(prev => (prev + 1) % HISTORICAL_TEAMS.length);
+      setActiveIndex(prev => (prev + 1) % displayTeams.length);
       setFocusedPlayerIndex(0);
     }, 7000);
     return () => clearInterval(timer);
-  }, [isAutoCycling]);
+  }, [isAutoCycling, displayTeams.length]);
 
   const handleSelectTeam = (index: number) => {
     sound.playClick();
@@ -52,21 +60,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
 
   const handlePrevTeam = () => {
     sound.playClick();
-    setActiveIndex(prev => (prev - 1 + HISTORICAL_TEAMS.length) % HISTORICAL_TEAMS.length);
+    setActiveIndex(prev => (prev - 1 + displayTeams.length) % displayTeams.length);
     setFocusedPlayerIndex(0);
     setIsAutoCycling(false);
   };
 
   const handleNextTeam = () => {
     sound.playClick();
-    setActiveIndex(prev => (prev + 1) % HISTORICAL_TEAMS.length);
+    setActiveIndex(prev => (prev + 1) % displayTeams.length);
     setFocusedPlayerIndex(0);
     setIsAutoCycling(false);
   };
 
-  const halfIndex = Math.ceil(HISTORICAL_TEAMS.length / 2);
-  const row1Teams = HISTORICAL_TEAMS.slice(0, halfIndex);
-  const row2Teams = HISTORICAL_TEAMS.slice(halfIndex);
+  const halfIndex = Math.ceil(displayTeams.length / 2);
+  const row1Teams = displayTeams.slice(0, halfIndex);
+  const row2Teams = displayTeams.slice(halfIndex);
 
   const renderMarqueeChip = (team: HistoricalTeam, idxInFull: number, duplicateKey: string) => {
     const isSelected = idxInFull === activeIndex;
@@ -272,7 +280,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
 
               {/* Progress Dots for quick jumping */}
               <div className="flex flex-wrap items-center gap-1.5 max-w-[240px] md:justify-end">
-                {HISTORICAL_TEAMS.map((tItem, idx) => (
+                {displayTeams.map((tItem, idx) => (
                   <button
                     key={tItem.id}
                     type="button"

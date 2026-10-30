@@ -965,9 +965,8 @@ export function buildDefaultEntryPools(
     };
   });
 
-  // Sort by OVR descending (with deterministic tie-breaker) to assign rankings
-  const shuffledOpponents = deterministicShuffle(allOpponents, rng);
-  const ranked = [...shuffledOpponents].sort((a, b) => b.ovr - a.ovr);
+  // Shuffle all opponents randomly using the campaign seed to assign Stage 3, Stage 2, and Stage 1 entry pools
+  const ranked = deterministicShuffle(allOpponents, rng);
 
   ranked.forEach((t, idx) => {
     t.seed = idx + 1;
