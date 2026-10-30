@@ -15,27 +15,30 @@ interface HomeViewProps {
   onNavigate: (tab: NavTab) => void;
 }
 
-const roleBadgeConfig: Record<string, { label: string; bg: string }> = {
-  igl: { label: 'IGL', bg: 'bg-blue-700' },
-  awp: { label: 'AWP', bg: 'bg-violet-700' },
-  entry: { label: 'ENT', bg: 'bg-red-700' },
-  rifler: { label: 'RIF', bg: 'bg-amber-700' },
-  lurker: { label: 'LURK', bg: 'bg-teal-700' },
-  support: { label: 'SUP', bg: 'bg-indigo-700' }
+const roleBadgeConfig: Record<string, { label: string; fullName: string; bg: string }> = {
+  igl: { label: 'IGL', fullName: 'In-Game Leader', bg: 'bg-blue-700' },
+  awp: { label: 'AWP', fullName: 'AWPer Principal', bg: 'bg-violet-700' },
+  entry: { label: 'ENT', fullName: 'Entry Fragger', bg: 'bg-red-700' },
+  rifler: { label: 'RIF', fullName: 'Star Rifler', bg: 'bg-amber-700' },
+  lurker: { label: 'LURK', fullName: 'Lurker', bg: 'bg-teal-700' },
+  support: { label: 'SUP', fullName: 'Support / Anchor', bg: 'bg-indigo-700' }
 };
 
 export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
   const { t } = useI18n();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [focusedPlayerIndex, setFocusedPlayerIndex] = useState(0);
   const [isAutoCycling, setIsAutoCycling] = useState(true);
 
   const activeTeam: HistoricalTeam = HISTORICAL_TEAMS[activeIndex] || HISTORICAL_TEAMS[0];
+  const focusedPlayer = activeTeam.roster[focusedPlayerIndex] || activeTeam.roster[0];
 
   // Auto-cycle spotlight team every 7s unless paused by user
   useEffect(() => {
     if (!isAutoCycling || HISTORICAL_TEAMS.length <= 1) return;
     const timer = setInterval(() => {
       setActiveIndex(prev => (prev + 1) % HISTORICAL_TEAMS.length);
+      setFocusedPlayerIndex(0);
     }, 7000);
     return () => clearInterval(timer);
   }, [isAutoCycling]);
@@ -43,18 +46,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
   const handleSelectTeam = (index: number) => {
     sound.playClick();
     setActiveIndex(index);
+    setFocusedPlayerIndex(0);
     setIsAutoCycling(false);
   };
 
   const handlePrevTeam = () => {
     sound.playClick();
     setActiveIndex(prev => (prev - 1 + HISTORICAL_TEAMS.length) % HISTORICAL_TEAMS.length);
+    setFocusedPlayerIndex(0);
     setIsAutoCycling(false);
   };
 
   const handleNextTeam = () => {
     sound.playClick();
     setActiveIndex(prev => (prev + 1) % HISTORICAL_TEAMS.length);
+    setFocusedPlayerIndex(0);
     setIsAutoCycling(false);
   };
 
@@ -99,6 +105,14 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
       </button>
     );
   };
+
+  const focusedRoleBadge = focusedPlayer
+    ? roleBadgeConfig[focusedPlayer.role] || {
+        label: focusedPlayer.role.toUpperCase(),
+        fullName: focusedPlayer.role.toUpperCase(),
+        bg: 'bg-amber-700'
+      }
+    : null;
 
   return (
     <div className="space-y-8 pb-16">
@@ -162,7 +176,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                 {t('home.teamsTitle')}
               </h3>
               <p className="text-xs text-cs-muted">
-                Clique em qualquer equipe na esteira animada para inspecionar sua escalação completa
+                Passe o mouse ou clique em um jogador ao lado para ampliar o card em destaque
               </p>
             </div>
           </div>
@@ -205,6 +219,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
         {/* Featured Team Spotlight Deck */}
         {activeTeam && (
           <div className="p-5 sm:p-7 bg-gradient-to-b from-cs-card/70 to-cs-surface border-b border-cs-border space-y-6">
+            {/* Team Header Row */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div
@@ -259,44 +274,137 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
               </div>
             </div>
 
-            {/* 5-Player Spotlight Roster Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-              {activeTeam.roster.map(player => {
-                const roleBadge = roleBadgeConfig[player.role] || {
-                  label: player.role.toUpperCase(),
-                  bg: 'bg-amber-700'
-                };
-                return (
-                  <div
-                    key={player.id}
-                    className="p-3 rounded-xl bg-cs-surface border border-cs-border hover:border-cs-accent/50 transition-colors flex flex-col items-center text-center gap-2.5"
-                  >
-                    <div className="relative w-20 h-24 rounded-xl overflow-hidden bg-cs-card border border-cs-border flex items-center justify-center">
-                      <PlayerAvatar
-                        playerId={player.id}
-                        nickname={player.nickname}
-                        teamId={player.teamId}
-                        className="w-full h-full object-cover object-top"
-                        size="sm"
-                      />
+            {/* Split Roster Showcase: Left Hero Spotlight Card + Right 5-Player Formation Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+              {/* Left Side: Large Zoomed Player Card */}
+              {focusedPlayer && focusedRoleBadge && (
+                <div
+                  className="lg:col-span-5 rounded-2xl bg-cs-bg/90 border-2 p-6 sm:p-7 flex flex-col items-center justify-between text-center gap-5 shadow-lg"
+                  style={{ borderColor: `${activeTeam.accentColor}90` }}
+                >
+                  <div className="w-full flex items-center justify-between text-xs text-cs-muted border-b border-cs-border pb-3">
+                    <span className="font-bold text-white">{activeTeam.name}</span>
+                    <span className="font-mono text-cs-accent tabular-nums">
+                      {focusedPlayerIndex + 1} / {activeTeam.roster.length}
+                    </span>
+                  </div>
+
+                  {/* Extra-Large Portrait Frame */}
+                  <div className="relative w-44 h-52 sm:w-52 sm:h-60 rounded-2xl overflow-hidden bg-cs-surface border-2 border-cs-border flex items-center justify-center shadow-md">
+                    <PlayerAvatar
+                      playerId={focusedPlayer.id}
+                      nickname={focusedPlayer.nickname}
+                      teamId={focusedPlayer.teamId}
+                      className="w-full h-full object-cover object-top"
+                      size="xl"
+                    />
+                  </div>
+
+                  {/* Big Readable Nickname & Role/Flag Badges */}
+                  <div className="w-full space-y-3">
+                    <h5 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
+                      {focusedPlayer.nickname}
+                    </h5>
+
+                    <div className="flex items-center justify-center gap-3">
+                      <div
+                        className="w-8 h-6 rounded-md overflow-hidden border border-cs-border shrink-0 shadow-sm"
+                        title={focusedPlayer.country}
+                      >
+                        <CountryFlag countryCode={focusedPlayer.country} />
+                      </div>
+                      <span
+                        className={`px-3.5 py-1 rounded-lg text-sm font-bold text-white shadow-sm ${focusedRoleBadge.bg}`}
+                      >
+                        {focusedRoleBadge.label}
+                      </span>
                     </div>
 
-                    <div className="w-full space-y-1.5">
-                      <div className="font-display font-black text-base text-white truncate">
-                        {player.nickname}
-                      </div>
-                      <div className="flex items-center justify-center gap-2">
-                        <div className="w-5 h-3.5 rounded overflow-hidden border border-cs-border/60 shrink-0" title={player.country}>
-                          <CountryFlag countryCode={player.country} />
-                        </div>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold text-white ${roleBadge.bg}`}>
-                          {roleBadge.label}
-                        </span>
-                      </div>
+                    <div className="text-xs text-cs-muted pt-1">
+                      {focusedRoleBadge.fullName}
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              )}
+
+              {/* Right Side: 5-Player Formation Selector (2 + 2 + 1 centered) */}
+              <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-6 gap-3.5 content-center">
+                {activeTeam.roster.map((player, pIdx) => {
+                  const roleBadge = roleBadgeConfig[player.role] || {
+                    label: player.role.toUpperCase(),
+                    fullName: player.role.toUpperCase(),
+                    bg: 'bg-amber-700'
+                  };
+                  const isFocused = pIdx === focusedPlayerIndex;
+                  // 2 cards on top row, 2 cards on middle row, 5th card centered on bottom row
+                  const formationSpan =
+                    pIdx === 4
+                      ? 'col-span-2 sm:col-span-4 sm:col-start-2'
+                      : 'col-span-1 sm:col-span-3';
+
+                  return (
+                    <button
+                      key={player.id}
+                      type="button"
+                      onMouseEnter={() => {
+                        setFocusedPlayerIndex(pIdx);
+                        setIsAutoCycling(false);
+                      }}
+                      onFocus={() => {
+                        setFocusedPlayerIndex(pIdx);
+                      }}
+                      onClick={() => {
+                        sound.playClick();
+                        setFocusedPlayerIndex(pIdx);
+                        setIsAutoCycling(false);
+                      }}
+                      className={`${formationSpan} p-3.5 sm:p-4 rounded-xl border text-left transition-colors flex items-center gap-3.5 focus-visible:ring-2 focus-visible:ring-cs-accent focus-visible:outline-none ${
+                        isFocused
+                          ? 'bg-cs-card border-cs-accent shadow-md'
+                          : 'bg-cs-surface/90 hover:bg-cs-card border-cs-border hover:border-cs-accent/50'
+                      }`}
+                    >
+                      <div
+                        className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-xl overflow-hidden bg-cs-bg border shrink-0 flex items-center justify-center transition-colors ${
+                          isFocused ? 'border-cs-accent' : 'border-cs-border'
+                        }`}
+                      >
+                        <PlayerAvatar
+                          playerId={player.id}
+                          nickname={player.nickname}
+                          teamId={player.teamId}
+                          className="w-full h-full object-cover object-top"
+                          size="md"
+                        />
+                      </div>
+
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="font-display font-black text-lg sm:text-xl text-white truncate">
+                          {player.nickname}
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="w-6 h-4 rounded overflow-hidden border border-cs-border/60 shrink-0"
+                            title={player.country}
+                          >
+                            <CountryFlag countryCode={player.country} />
+                          </div>
+                          <span
+                            className={`px-2.5 py-0.5 rounded text-xs font-bold text-white ${roleBadge.bg}`}
+                          >
+                            {roleBadge.label}
+                          </span>
+                        </div>
+
+                        <div className="text-[11px] text-cs-muted truncate">
+                          {roleBadge.fullName}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}

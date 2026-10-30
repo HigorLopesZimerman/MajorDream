@@ -3,7 +3,7 @@
 Coloque os arquivos de imagem dentro da pasta correspondente de cada equipe:
 
 - **Logo do time:** logo.webp ou logo.png (também aceita .svg ou .jpg)
-- **Foto de cada player:** <nickname>.webp ou <nickname>.png (ex: allen.webp, coldzera.png)
+- **Foto de cada player:** <nickname>.webp ou <nickname>.png (ex: fallen.webp, coldzera.png)
 
 ## Lista de Pastas e Nomes dos Players
 
