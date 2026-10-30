@@ -9,7 +9,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2016,
     logoText: "LG",
     accentColor: "#00A3E0",
-    description: "Primeiros brasileiros campeões mundiais de CS:GO (MLG Columbus 2016).",
     roster: [
       { id: "fallen-2016", nickname: "FalleN", country: "BR", role: "igl", ovr: 93, teamId: "lg-2016", teamName: "Luminosity Gaming" },
       { id: "coldzera-2016", nickname: "coldzera", country: "BR", role: "lurker", ovr: 98, teamId: "lg-2016", teamName: "Luminosity Gaming" },
@@ -26,7 +25,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2017,
     logoText: "SK",
     accentColor: "#002B49",
-    description: "Equipe dominante em 2017 com 8 títulos internacionais conquistados.",
     roster: [
       { id: "fallen-2017", nickname: "FalleN", country: "BR", role: "igl", ovr: 94, teamId: "sk-2017", teamName: "SK Gaming" },
       { id: "coldzera-2017", nickname: "coldzera", country: "BR", role: "rifler", ovr: 97, teamId: "sk-2017", teamName: "SK Gaming" },
@@ -43,7 +41,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2018,
     logoText: "AST",
     accentColor: "#EF4444",
-    description: "Maior dinastia da história do CS:GO com 4 Majors.",
     roster: [
       { id: "gla1ve-2018", nickname: "gla1ve", country: "DK", role: "igl", ovr: 92, teamId: "astralis-2018", teamName: "Astralis" },
       { id: "dev1ce-2018", nickname: "dev1ce", country: "DK", role: "awp", ovr: 97, teamId: "astralis-2018", teamName: "Astralis" },
@@ -60,7 +57,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2021,
     logoText: "NAVI",
     accentColor: "#FACC15",
-    description: "Campanha invicta histórica no PGL Major Stockholm 2021.",
     roster: [
       { id: "s1mple-2021", nickname: "s1mple", country: "UA", role: "awp", ovr: 99, teamId: "navi-2021", teamName: "Natus Vincere" },
       { id: "electronic-2021", nickname: "electronic", country: "RU", role: "rifler", ovr: 94, teamId: "navi-2021", teamName: "Natus Vincere" },
@@ -77,7 +73,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2022,
     logoText: "FAZE",
     accentColor: "#E11D48",
-    description: "Primeira line-up internacional multicultural a vencer um Major (Antuérpia 2022).",
     roster: [
       { id: "karrigan-2022", nickname: "karrigan", country: "DK", role: "igl", ovr: 91, teamId: "faze-2022", teamName: "FaZe Clan" },
       { id: "rain-2022", nickname: "rain", country: "NO", role: "entry", ovr: 93, teamId: "faze-2022", teamName: "FaZe Clan" },
@@ -94,7 +89,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2015,
     logoText: "FNC",
     accentColor: "#FF6B00",
-    description: "Primeira organização a ser tricampeã de Major e bicampeã consecutiva (2015).",
     roster: [
       { id: "pronax-2015", nickname: "pronax", country: "SE", role: "igl", ovr: 87, teamId: "fnatic-2015", teamName: "Fnatic" },
       { id: "olofmeister-2015", nickname: "olofmeister", country: "SE", role: "rifler", ovr: 97, teamId: "fnatic-2015", teamName: "Fnatic" },
@@ -111,7 +105,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2014,
     logoText: "NiP",
     accentColor: "#EAB308",
-    description: "Pioneiros absolutos do CS:GO com o recorde de 87-0 em mapas LAN.",
     roster: [
       { id: "fiff-2014", nickname: "Fifflaren", country: "SE", role: "support", ovr: 81, teamId: "nip-2014", teamName: "Ninjas in Pyjamas" },
       { id: "f0rest-2014", nickname: "f0rest", country: "SE", role: "rifler", ovr: 96, teamId: "nip-2014", teamName: "Ninjas in Pyjamas" },
@@ -128,7 +121,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2023,
     logoText: "VIT",
     accentColor: "#FACC15",
-    description: "Últimos campeões da história do CS:GO (BLAST Paris Major 2023).",
     roster: [
       { id: "zywoo-2023", nickname: "ZywOo", country: "FR", role: "awp", ovr: 99, teamId: "vitality-2023", teamName: "Team Vitality" },
       { id: "apex-2023", nickname: "apEX", country: "FR", role: "igl", ovr: 89, teamId: "vitality-2023", teamName: "Team Vitality" },
@@ -145,7 +137,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2014,
     logoText: "VP",
     accentColor: "#F97316",
-    description: "A lendária Virtus.Plow polonesa campeã em Katowice 2014.",
     roster: [
       { id: "taz-2014", nickname: "TaZ", country: "PL", role: "igl", ovr: 88, teamId: "vp-2014", teamName: "Virtus.pro" },
       { id: "neo-2014", nickname: "NEO", country: "PL", role: "support", ovr: 92, teamId: "vp-2014", teamName: "Virtus.pro" },
@@ -162,7 +153,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2024,
     logoText: "NAVI",
     accentColor: "#FACC15",
-    description: "Primeiros campeões de Major da história do Counter-Strike 2 (Copenhagen 2024).",
     roster: [
       { id: "aleksib-2024", nickname: "Aleksib", country: "FI", role: "igl", ovr: 90, teamId: "navi-2024", teamName: "Natus Vincere" },
       { id: "jl-2024", nickname: "jL", country: "LT", role: "entry", ovr: 95, teamId: "navi-2024", teamName: "Natus Vincere" },
@@ -179,7 +169,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2024,
     logoText: "TS",
     accentColor: "#10B981",
-    description: "Campanha arrasadora no IEM Katowice 2024 liderada por donk.",
     roster: [
       { id: "chopper-2024", nickname: "chopper", country: "RU", role: "igl", ovr: 88, teamId: "spirit-2024", teamName: "Team Spirit" },
       { id: "donk-2024", nickname: "donk", country: "RU", role: "entry", ovr: 98, teamId: "spirit-2024", teamName: "Team Spirit" },
@@ -196,7 +185,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2023,
     logoText: "G2",
     accentColor: "#EF4444",
-    description: "Dobradinha épica dos dois maiores torneios do ano (Katowice e Colônia 2023).",
     roster: [
       { id: "hoxxi-2023", nickname: "HooXi", country: "DK", role: "igl", ovr: 86, teamId: "g2-2023", teamName: "G2 Esports" },
       { id: "niko-2023", nickname: "NiKo", country: "BA", role: "entry", ovr: 97, teamId: "g2-2023", teamName: "G2 Esports" },
@@ -213,7 +201,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2019,
     logoText: "TL",
     accentColor: "#0EA5E9",
-    description: "Conquistou o Intel Grand Slam em recorde de 63 dias em 2019.",
     roster: [
       { id: "nitr0-2019", nickname: "nitr0", country: "US", role: "igl", ovr: 91, teamId: "liquid-2019", teamName: "Team Liquid" },
       { id: "elige-2019", nickname: "EliGE", country: "US", role: "entry", ovr: 96, teamId: "liquid-2019", teamName: "Team Liquid" },
@@ -230,7 +217,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2018,
     logoText: "C9",
     accentColor: "#00AEEF",
-    description: "Primeira e única organização norte-americana a vencer um Major de CS:GO (Boston 2018).",
     roster: [
       { id: "tarik-2018", nickname: "tarik", country: "US", role: "igl", ovr: 94, teamId: "c9-2018", teamName: "Cloud9" },
       { id: "stewie2k-2018", nickname: "Stewie2K", country: "US", role: "entry", ovr: 92, teamId: "c9-2018", teamName: "Cloud9" },
@@ -247,7 +233,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2015,
     logoText: "nV",
     accentColor: "#1E3A8A",
-    description: "Esquadrão francês campeão do Major de Cluj-Napoca 2015.",
     roster: [
       { id: "happy-2015", nickname: "Happy", country: "FR", role: "igl", ovr: 91, teamId: "envy-2015", teamName: "Team EnVyUs" },
       { id: "kennys-2015", nickname: "kennyS", country: "FR", role: "awp", ovr: 97, teamId: "envy-2015", teamName: "Team EnVyUs" },
@@ -264,7 +249,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2017,
     logoText: "GMB",
     accentColor: "#DC2626",
-    description: "Campanha histórica e surpreendente campeã do PGL Krakow Major 2017.",
     roster: [
       { id: "zeus-2017", nickname: "Zeus", country: "UA", role: "igl", ovr: 88, teamId: "gambit-2017", teamName: "Gambit Esports" },
       { id: "dosia-2017", nickname: "Dosia", country: "RU", role: "support", ovr: 86, teamId: "gambit-2017", teamName: "Gambit Esports" },
@@ -281,7 +265,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2019,
     logoText: "FUR",
     accentColor: "#000000",
-    description: "Estilo ultrarrápido brasileiro que chocou o mundo em 2019.",
     roster: [
       { id: "arT-2019", nickname: "arT", country: "BR", role: "igl", ovr: 90, teamId: "furia-2019", teamName: "FURIA Esports" },
       { id: "yuurih-2019", nickname: "yuurih", country: "BR", role: "rifler", ovr: 93, teamId: "furia-2019", teamName: "FURIA Esports" },
@@ -298,7 +281,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2019,
     logoText: "RNG",
     accentColor: "#8B0000",
-    description: "Campanha histórica australiana semifinalista do StarLadder Berlin Major 2019.",
     roster: [
       { id: "dexter-2019", nickname: "AZR", country: "AU", role: "igl", ovr: 86, teamId: "renegades-2019", teamName: "Renegades" },
       { id: "jks-2019", nickname: "jks", country: "AU", role: "rifler", ovr: 94, teamId: "renegades-2019", teamName: "Renegades" },
@@ -315,7 +297,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2019,
     logoText: "NRG",
     accentColor: "#EF4444",
-    description: "Campanha 3-0 na fase de grupos do StarLadder Berlin Major 2019.",
     roster: [
       { id: "stanislaw-2019", nickname: "stanislaw", country: "CA", role: "igl", ovr: 88, teamId: "nrg-2019", teamName: "NRG Esports" },
       { id: "tarik-2019", nickname: "tarik", country: "US", role: "entry", ovr: 91, teamId: "nrg-2019", teamName: "NRG Esports" },
@@ -332,7 +313,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2018,
     logoText: "MOUZ",
     accentColor: "#E11D48",
-    description: "Equipe internacional campeã da StarSeries S4 e ESL One New York 2018.",
     roster: [
       { id: "chrisj-2018", nickname: "chrisJ", country: "NL", role: "igl", ovr: 89, teamId: "mouz-2018", teamName: "MOUZ" },
       { id: "oskar-2018", nickname: "oskar", country: "CZ", role: "awp", ovr: 94, teamId: "mouz-2018", teamName: "MOUZ" },
@@ -349,7 +329,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2020,
     logoText: "COL",
     accentColor: "#002B49",
-    description: "A \"Juggernaut\" construída por Jason Lake campeã da BLAST Premier Spring 2020.",
     roster: [
       { id: "blamef-2020", nickname: "blameF", country: "DK", role: "igl", ovr: 94, teamId: "col-2020", teamName: "Complexity Gaming" },
       { id: "k0nfig-2020", nickname: "k0nfig", country: "DK", role: "entry", ovr: 92, teamId: "col-2020", teamName: "Complexity Gaming" },
@@ -366,7 +345,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2019,
     logoText: "ENCE",
     accentColor: "#85144b",
-    description: "Campanha de conto de fadas finalista do IEM Katowice Major 2019. EZ4ENCE!",
     roster: [
       { id: "aleksib-2019", nickname: "Aleksib", country: "FI", role: "igl", ovr: 91, teamId: "ence-2019", teamName: "ENCE" },
       { id: "allu-2019", nickname: "allu", country: "FI", role: "awp", ovr: 92, teamId: "ence-2019", teamName: "ENCE" },
@@ -383,7 +361,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2022,
     logoText: "HER",
     accentColor: "#EF4444",
-    description: "Finalistas do inesquecível IEM Rio Major 2022 e campeões da BLAST Fall Final.",
     roster: [
       { id: "cadiaN-2022", nickname: "cadiaN", country: "DK", role: "igl", ovr: 92, teamId: "heroic-2022", teamName: "Heroic" },
       { id: "stavn-2022", nickname: "stavn", country: "DK", role: "rifler", ovr: 95, teamId: "heroic-2022", teamName: "Heroic" },
@@ -400,7 +377,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2022,
     logoText: "OUT",
     accentColor: "#F97316",
-    description: "Campeões do emblemático IEM Rio Major 2022 no Brasil sob tag neutra.",
     roster: [
       { id: "jame-2022", nickname: "Jame", country: "RU", role: "igl", ovr: 95, teamId: "outsiders-2022", teamName: "Outsiders" },
       { id: "fl1t-2022", nickname: "FL1T", country: "RU", role: "rifler", ovr: 93, teamId: "outsiders-2022", teamName: "Outsiders" },
@@ -417,7 +393,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2016,
     logoText: "DIG",
     accentColor: "#FACC15",
-    description: "Campanha espetacular campeã do EPICENTER Moscow 2016 derrotando a Virtus.pro.",
     roster: [
       { id: "msl-2016", nickname: "MSL", country: "DK", role: "igl", ovr: 86, teamId: "dignitas-2016", teamName: "Team Dignitas" },
       { id: "k0nfig-2016", nickname: "k0nfig", country: "DK", role: "entry", ovr: 93, teamId: "dignitas-2016", teamName: "Team Dignitas" },
@@ -434,7 +409,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2014,
     logoText: "CW",
     accentColor: "#EAB308",
-    description: "O berço da linhagem dinamarquesa que mais tarde formaria a lendária Astralis.",
     roster: [
       { id: "gla1ve-2014", nickname: "gla1ve", country: "DK", role: "igl", ovr: 86, teamId: "copenhagen-2014", teamName: "Copenhagen Wolves" },
       { id: "pimp-2014", nickname: "Pimp", country: "DK", role: "rifler", ovr: 88, teamId: "copenhagen-2014", teamName: "Copenhagen Wolves" },
@@ -451,7 +425,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2015,
     logoText: "CLG",
     accentColor: "#00A3E0",
-    description: "Um dos times mais icônicos da era inicial norte-americana nos Majors.",
     roster: [
       { id: "tarik-2015", nickname: "tarik", country: "US", role: "entry", ovr: 89, teamId: "clg-2015", teamName: "Counter Logic Gaming" },
       { id: "jdm64-2015", nickname: "jdm64", country: "US", role: "awp", ovr: 89, teamId: "clg-2015", teamName: "Counter Logic Gaming" },
@@ -468,7 +441,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2018,
     logoText: "TYL",
     accentColor: "#DC2626",
-    description: "Primeira equipe chinesa e asiática a alcançar o status de Legends em um Major (London 2018).",
     roster: [
       { id: "captainmo-2018", nickname: "CaptainMo", country: "CN", role: "igl", ovr: 85, teamId: "tyloo-2018", teamName: "TyLoo" },
       { id: "somebody-2018", nickname: "somebody", country: "CN", role: "entry", ovr: 89, teamId: "tyloo-2018", teamName: "TyLoo" },
@@ -485,7 +457,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2024,
     logoText: "MGLZ",
     accentColor: "#B45309",
-    description: "A sensação mongol que rompeu fronteiras vencendo torneios internacionais de CS2.",
     roster: [
       { id: "bzking-2024", nickname: "bzking", country: "MN", role: "igl", ovr: 89, teamId: "mongolz-2024", teamName: "The MongolZ" },
       { id: "senzu-2024", nickname: "Senzu", country: "MN", role: "rifler", ovr: 93, teamId: "mongolz-2024", teamName: "The MongolZ" },
@@ -502,7 +473,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2022,
     logoText: "IMP",
     accentColor: "#10B981",
-    description: "O emocionante \"Last Dance\" das lendas brasileiras no PGL Major Antwerp 2022.",
     roster: [
       { id: "fallen-2022", nickname: "FalleN", country: "BR", role: "igl", ovr: 91, teamId: "imperial-2022", teamName: "Imperial Esports" },
       { id: "fer-2022", nickname: "fer", country: "BR", role: "entry", ovr: 93, teamId: "imperial-2022", teamName: "Imperial Esports" },
@@ -519,7 +489,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2023,
     logoText: "ENCE",
     accentColor: "#85144b",
-    description: "Campeões do IEM Dallas 2023 e finalistas do IEM Cologne 2023.",
     roster: [
       { id: "snappi-2023", nickname: "Snappi", country: "DK", role: "igl", ovr: 89, teamId: "ence-2023", teamName: "ENCE" },
       { id: "sunpayus-2023", nickname: "SunPayus", country: "ES", role: "awp", ovr: 94, teamId: "ence-2023", teamName: "ENCE" },
@@ -536,7 +505,6 @@ export const CS_DATABASE: HistoricalTeam[] = [
     year: 2017,
     logoText: "AST",
     accentColor: "#EF4444",
-    description: "O primeiro título de Major da Astralis (ELEAGUE Major Atlanta 2017).",
     roster: [
       { id: "gla1ve-2017", nickname: "gla1ve", country: "DK", role: "igl", ovr: 91, teamId: "astralis-2017", teamName: "Astralis" },
       { id: "dev1ce-2017", nickname: "dev1ce", country: "DK", role: "awp", ovr: 96, teamId: "astralis-2017", teamName: "Astralis" },

@@ -262,9 +262,6 @@ export const DraftFlow: React.FC<DraftFlowProps> = ({ onCompleteDraft }) => {
                     <h3 className="font-display font-black text-2xl text-white">
                       {currentDrawnTeam.name} ({currentDrawnTeam.year})
                     </h3>
-                    <p className="text-xs text-cs-muted mt-0.5">
-                      {currentDrawnTeam.description}
-                    </p>
                   </div>
                 </div>
 

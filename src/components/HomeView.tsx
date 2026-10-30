@@ -247,11 +247,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                   <h4 className="font-display font-black text-2xl sm:text-3xl text-white">
                     {activeTeam.name}
                   </h4>
-                  {activeTeam.description && (
-                    <p className="text-xs sm:text-sm text-cs-muted max-w-2xl">
-                      {activeTeam.description}
-                    </p>
-                  )}
                 </div>
               </div>
 
