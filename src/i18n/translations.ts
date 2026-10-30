@@ -14,12 +14,14 @@ export const translations = {
     // Home / Hero
     'hero.badge': 'Counter-Strike Draft & Simulação Competitiva',
     'hero.title': 'MONTE SEU ELENCO DE LENDAS.',
-    'hero.subtitle': 'Drafte estrelas de todas as eras do CS (1.6 ao CS2), gerencie sinergias táticas e dispute a glória no Major com simulação MR12 round a round.',
+    'hero.subtitle': 'Drafte estrelas de todas as eras do CS (1.6 ao CS2), gerencie sinergias táticas e dispute a glória no Major com simulação competitiva round a round.',
     'hero.startDraft': 'INICIAR DRAFT RUMO AO MAJOR',
     'hero.exploreModes': 'Explorar Outros Modos',
     'hero.statsDrafts': 'Simulações Jogadas',
-    'hero.statsLegends': 'Lendas Registradas',
-    'hero.statsTeams': 'Times Históricos',
+    'hero.statsLegends': 'Jogadores Disponíveis',
+    'hero.statsTeams': 'Equipes Disponíveis',
+    'home.teamsTitle': 'Equipes Disponíveis no Draft',
+    'home.teamsCount': 'lineups registradas',
 
     // Modes Grid
     'modes.title': 'MODOS DE JOGO DISPONÍVEIS',
@@ -139,12 +141,14 @@ export const translations = {
     // Home / Hero
     'hero.badge': 'Counter-Strike Draft & Competitive Simulation',
     'hero.title': 'BUILD YOUR LEGENDARY ROSTER.',
-    'hero.subtitle': 'Draft stars from every era of CS (1.6 to CS2), manage tactical synergies, and compete for Major glory with round-by-round MR12 simulation.',
+    'hero.subtitle': 'Draft stars from every era of CS (1.6 to CS2), manage tactical synergies, and compete for Major glory with round-by-round competitive simulation.',
     'hero.startDraft': 'START ROAD TO MAJOR DRAFT',
     'hero.exploreModes': 'Explore Other Modes',
     'hero.statsDrafts': 'Simulations Played',
-    'hero.statsLegends': 'Registered Legends',
-    'hero.statsTeams': 'Historic Teams',
+    'hero.statsLegends': 'Available Players',
+    'hero.statsTeams': 'Available Teams',
+    'home.teamsTitle': 'Available Teams in Draft',
+    'home.teamsCount': 'registered lineups',
 
     // Modes Grid
     'modes.title': 'AVAILABLE GAME MODES',

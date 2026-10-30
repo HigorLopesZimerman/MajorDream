@@ -5,6 +5,7 @@ import { Trophy, ArrowRight, ShieldCheck } from 'lucide-react';
 import { sound } from '../utils/sound';
 import { NavTab } from './Navbar';
 import { HISTORICAL_TEAMS, ALL_PLAYERS } from '../data/csData';
+import { TeamLogo } from './TeamLogo';
 
 interface HomeViewProps {
   onStartDraft: () => void;
@@ -48,43 +49,75 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
           </div>
 
           {/* Quick Metrics */}
-          <div className="grid grid-cols-3 gap-4 pt-8 border-t border-cs-border max-w-xl mx-auto">
+          <div className="grid grid-cols-2 gap-6 pt-8 border-t border-cs-border max-w-sm mx-auto">
             <div>
-              <div className="font-display font-black text-2xl md:text-3xl text-cs-accent">12+</div>
+              <div className="font-display font-black text-2xl md:text-3xl text-cs-accent tabular-nums">
+                {HISTORICAL_TEAMS.length}
+              </div>
               <div className="text-xs text-cs-muted mt-0.5">{t('hero.statsTeams')}</div>
             </div>
             <div>
-              <div className="font-display font-black text-2xl md:text-3xl text-cs-blue">{ALL_PLAYERS.length}+</div>
+              <div className="font-display font-black text-2xl md:text-3xl text-cs-blue tabular-nums">
+                {ALL_PLAYERS.length}
+              </div>
               <div className="text-xs text-cs-muted mt-0.5">{t('hero.statsLegends')}</div>
-            </div>
-            <div>
-              <div className="font-display font-black text-2xl md:text-3xl text-cs-green">MR12</div>
-              <div className="text-xs text-cs-muted mt-0.5">Simulação Tática</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Teams Showcase */}
-      <section className="p-6 rounded-2xl border border-cs-border bg-cs-surface">
-        <h3 className="font-display font-bold text-base text-white mb-4 flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-cs-accent" />
-          <span>Equipes Históricas no Banco de Dados</span>
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      {/* Available Teams Showcase */}
+      <section className="p-6 rounded-2xl border border-cs-border bg-cs-surface space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cs-border pb-4">
+          <h3 className="font-display font-bold text-lg text-white flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5 text-cs-accent" />
+            <span>{t('home.teamsTitle')}</span>
+          </h3>
+          <span className="text-xs font-mono text-cs-muted">
+            {HISTORICAL_TEAMS.length} {t('home.teamsCount')}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
           {HISTORICAL_TEAMS.map(team => (
-            <div 
+            <div
               key={team.id}
-              className="p-3 rounded-xl bg-cs-card border border-cs-border hover:border-cs-accent/50 transition-colors flex flex-col justify-between"
+              className="p-3.5 rounded-xl bg-cs-card border border-cs-border hover:border-cs-accent/60 transition-colors flex flex-col justify-between gap-3"
             >
-              <div>
-                <span className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-cs-surface text-cs-accent font-semibold border border-cs-border">
-                  {team.year}
-                </span>
-                <h4 className="font-semibold text-sm text-cs-text mt-2 truncate">{team.name}</h4>
+              <div className="flex items-center gap-3 min-w-0">
+                <TeamLogo
+                  teamId={team.id}
+                  name={team.name}
+                  logoText={team.logoText}
+                  accentColor={team.accentColor}
+                  size="sm"
+                  className="w-10 h-10 rounded-lg shrink-0"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <h4 className="font-display font-bold text-sm text-white truncate">
+                      {team.name}
+                    </h4>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cs-surface text-cs-accent font-semibold border border-cs-border shrink-0">
+                      {team.year}
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono text-cs-muted block">
+                    {team.shortName}
+                  </span>
+                </div>
               </div>
-              <div className="text-[11px] text-cs-muted mt-2">
-                {team.roster.length} jogadores lendários
+
+              {/* 5 Roster Nickname Pills */}
+              <div className="flex flex-wrap items-center gap-1 pt-2 border-t border-cs-border/60">
+                {team.roster.map(player => (
+                  <span
+                    key={player.id}
+                    className="text-[11px] font-medium px-2 py-0.5 rounded bg-cs-surface text-cs-text border border-cs-border/60"
+                  >
+                    {player.nickname}
+                  </span>
+                ))}
               </div>
             </div>
           ))}
