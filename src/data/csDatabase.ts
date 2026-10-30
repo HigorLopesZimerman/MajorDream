@@ -285,7 +285,7 @@ export const CS_DATABASE: HistoricalTeam[] = [
     roster: [
       { id: "arT-2019", nickname: "arT", country: "BR", role: "igl", ovr: 90, teamId: "furia-2019", teamName: "FURIA Esports" },
       { id: "yuurih-2019", nickname: "yuurih", country: "BR", role: "rifler", ovr: 93, teamId: "furia-2019", teamName: "FURIA Esports" },
-      { id: "ks क्रमांका-2019", nickname: "KSCERATO", country: "BR", role: "lurker", ovr: 95, teamId: "furia-2019", teamName: "FURIA Esports" },
+      { id: "kscerato-2019", nickname: "KSCERATO", country: "BR", role: "lurker", ovr: 95, teamId: "furia-2019", teamName: "FURIA Esports" },
       { id: "vini-2019", nickname: "VINI", country: "BR", role: "support", ovr: 86, teamId: "furia-2019", teamName: "FURIA Esports" },
       { id: "ablej-2019", nickname: "ableJ", country: "BR", role: "entry", ovr: 83, teamId: "furia-2019", teamName: "FURIA Esports" }
     ]

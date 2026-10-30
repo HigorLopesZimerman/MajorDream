@@ -106,6 +106,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
           <PlayerAvatar
             playerId={player.id}
             nickname={player.nickname}
+            teamId={player.teamId}
             className="w-full h-full object-cover object-top"
           />
         </div>

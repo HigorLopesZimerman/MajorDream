@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getPlayerPortrait } from '../utils/playerAssets';
 
 interface PlayerAvatarProps {
   playerId: string;
   nickname: string;
+  teamId?: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
@@ -11,11 +12,16 @@ interface PlayerAvatarProps {
 export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
   playerId,
   nickname,
+  teamId,
   className = '',
   size = 'md'
 }) => {
-  const [imgError, setImgError] = useState(false);
-  const portrait = getPlayerPortrait(playerId, nickname);
+  const portrait = getPlayerPortrait(playerId, nickname, teamId);
+  const [candidateIndex, setCandidateIndex] = useState(0);
+
+  useEffect(() => {
+    setCandidateIndex(0);
+  }, [playerId, nickname, teamId]);
 
   const sizeClasses = {
     sm: 'w-10 h-10 text-xs',
@@ -25,15 +31,15 @@ export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
   };
 
   const dim = sizeClasses[size];
+  const currentImgUrl = portrait.candidates[candidateIndex];
 
-  // If verified photo exists and hasn't failed to load
-  if (portrait.hasVerifiedImage && portrait.url && !imgError) {
+  if (currentImgUrl) {
     return (
       <div className={`relative rounded-xl overflow-hidden bg-cs-surface border border-cs-border shrink-0 select-none ${dim} ${className}`}>
         <img
-          src={portrait.url}
+          src={currentImgUrl}
           alt={nickname}
-          onError={() => setImgError(true)}
+          onError={() => setCandidateIndex(prev => prev + 1)}
           className="w-full h-full object-cover object-center"
           decoding="async"
         />
@@ -41,10 +47,10 @@ export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
     );
   }
 
-  // Strict neutral fallback avatar (initials + dark esports gradient)
+  // Neutral fallback avatar (initials + dark esports surface)
   return (
     <div
-      className={`relative rounded-xl overflow-hidden bg-gradient-to-br from-cs-surface to-cs-card border border-cs-border flex items-center justify-center shrink-0 select-none font-display font-black text-slate-300 ${dim} ${className}`}
+      className={`relative rounded-xl overflow-hidden bg-cs-surface border border-cs-border flex items-center justify-center shrink-0 select-none font-display font-black text-slate-300 ${dim} ${className}`}
       title={nickname}
     >
       <span>{portrait.initials}</span>

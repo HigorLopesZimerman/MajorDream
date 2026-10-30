@@ -275,6 +275,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                       <PlayerAvatar
                         playerId={player.id}
                         nickname={player.nickname}
+                        teamId={player.teamId}
                         className="w-full h-full object-cover object-top"
                         size="sm"
                       />

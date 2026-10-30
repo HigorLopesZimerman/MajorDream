@@ -320,6 +320,7 @@ export const FinalResultsView: React.FC<FinalResultsViewProps> = ({
                         <PlayerAvatar
                           playerId={player.id}
                           nickname={player.nickname}
+                          teamId={player.teamId}
                           className="w-full h-full object-cover object-top"
                           size="sm"
                         />
