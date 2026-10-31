@@ -13,6 +13,7 @@ interface RawTeam {
   year: number;
   logoText: string;
   accentColor: string;
+  tags: string[];
   roster: Array<Omit<Player, 'ovr'> & { ovr?: number }>;
 }
 
@@ -25,6 +26,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2016,
     logoText: "LG",
     accentColor: "#00A3E0",
+    tags: ["SA", "2016", "BR"],
     roster: [
       {
         id: "fallen-2016", nickname: "FalleN", country: "BR", role: "igl", teamId: "lg-2016", teamName: "Luminosity Gaming",
@@ -56,6 +58,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2017,
     logoText: "SK",
     accentColor: "#002B49",
+    tags: ["SA", "2017", "BR"],
     roster: [
       {
         id: "fallen-2017", nickname: "FalleN", country: "BR", role: "igl", teamId: "sk-2017", teamName: "SK Gaming",
@@ -87,6 +90,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2018,
     logoText: "AST",
     accentColor: "#EF4444",
+    tags: ["EU", "2018", "DK"],
     roster: [
       {
         id: "gla1ve-2018", nickname: "gla1ve", country: "DK", role: "igl", teamId: "astralis-2018", teamName: "Astralis",
@@ -118,6 +122,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2021,
     logoText: "NAVI",
     accentColor: "#FACC15",
+    tags: ["CIS", "2021", "UA"],
     roster: [
       {
         id: "s1mple-2021", nickname: "s1mple", country: "UA", role: "awp", teamId: "navi-2021", teamName: "Natus Vincere",
@@ -149,6 +154,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2022,
     logoText: "FAZE",
     accentColor: "#E11D48",
+    tags: ["EU", "2022", "INT"],
     roster: [
       {
         id: "karrigan-2022", nickname: "karrigan", country: "DK", role: "igl", teamId: "faze-2022", teamName: "FaZe Clan",
@@ -180,6 +186,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2015,
     logoText: "FNC",
     accentColor: "#FF6B00",
+    tags: ["EU", "2015", "SE"],
     roster: [
       {
         id: "pronax-2015", nickname: "pronax", country: "SE", role: "igl", teamId: "fnatic-2015", teamName: "Fnatic",
@@ -211,6 +218,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2014,
     logoText: "NiP",
     accentColor: "#EAB308",
+    tags: ["EU", "2014", "SE"],
     roster: [
       {
         id: "fiff-2014", nickname: "Fifflaren", country: "SE", role: "support", teamId: "nip-2014", teamName: "Ninjas in Pyjamas",
@@ -242,6 +250,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2023,
     logoText: "VIT",
     accentColor: "#FACC15",
+    tags: ["EU", "2023", "FR"],
     roster: [
       {
         id: "zywoo-2023", nickname: "ZywOo", country: "FR", role: "awp", teamId: "vitality-2023", teamName: "Team Vitality",
@@ -273,6 +282,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2014,
     logoText: "VP",
     accentColor: "#F97316",
+    tags: ["EU", "2014", "PL"],
     roster: [
       {
         id: "taz-2014", nickname: "TaZ", country: "PL", role: "igl", teamId: "vp-2014", teamName: "Virtus.pro",
@@ -304,6 +314,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2024,
     logoText: "NAVI",
     accentColor: "#FACC15",
+    tags: ["EU", "2024", "UA"],
     roster: [
       {
         id: "aleksib-2024", nickname: "Aleksib", country: "FI", role: "igl", teamId: "navi-2024", teamName: "Natus Vincere",
@@ -335,6 +346,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2024,
     logoText: "TS",
     accentColor: "#10B981",
+    tags: ["CIS", "2024", "RU"],
     roster: [
       {
         id: "chopper-2024", nickname: "chopper", country: "RU", role: "igl", teamId: "spirit-2024", teamName: "Team Spirit",
@@ -366,6 +378,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2023,
     logoText: "G2",
     accentColor: "#EF4444",
+    tags: ["EU", "2023", "INT"],
     roster: [
       {
         id: "hoxxi-2023", nickname: "HooXi", country: "DK", role: "igl", teamId: "g2-2023", teamName: "G2 Esports",
@@ -397,6 +410,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2019,
     logoText: "TL",
     accentColor: "#0EA5E9",
+    tags: ["NA", "2019", "US"],
     roster: [
       {
         id: "nitr0-2019", nickname: "nitr0", country: "US", role: "igl", teamId: "liquid-2019", teamName: "Team Liquid",
@@ -428,6 +442,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2018,
     logoText: "C9",
     accentColor: "#00AEEF",
+    tags: ["NA", "2018", "US"],
     roster: [
       {
         id: "tarik-2018", nickname: "tarik", country: "US", role: "igl", teamId: "c9-2018", teamName: "Cloud9",
@@ -459,6 +474,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2015,
     logoText: "nV",
     accentColor: "#1E3A8A",
+    tags: ["EU", "2015", "FR"],
     roster: [
       {
         id: "happy-2015", nickname: "Happy", country: "FR", role: "igl", teamId: "envy-2015", teamName: "Team EnVyUs",
@@ -490,6 +506,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2017,
     logoText: "GMB",
     accentColor: "#DC2626",
+    tags: ["CIS", "2017", "KZ"],
     roster: [
       {
         id: "zeus-2017", nickname: "Zeus", country: "UA", role: "igl", teamId: "gambit-2017", teamName: "Gambit Esports",
@@ -521,6 +538,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2019,
     logoText: "FUR",
     accentColor: "#F59E0B",
+    tags: ["SA", "2019", "BR", "CSGO", "MAJOR", "BERLIN_2019"],
     roster: [
       {
         id: "arT-2019", nickname: "arT", country: "BR", role: "igl", teamId: "furia-2019", teamName: "FURIA Esports",
@@ -552,6 +570,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2019,
     logoText: "RNG",
     accentColor: "#8B0000",
+    tags: ["OCE", "2019", "AU"],
     roster: [
       {
         id: "dexter-2019", nickname: "AZR", country: "AU", role: "igl", teamId: "renegades-2019", teamName: "Renegades",
@@ -583,6 +602,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2019,
     logoText: "NRG",
     accentColor: "#EF4444",
+    tags: ["NA", "2019", "US"],
     roster: [
       {
         id: "stanislaw-2019", nickname: "stanislaw", country: "CA", role: "igl", teamId: "nrg-2019", teamName: "NRG Esports",
@@ -614,6 +634,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2018,
     logoText: "MOUZ",
     accentColor: "#E11D48",
+    tags: ["EU", "2018", "DE"],
     roster: [
       {
         id: "chrisj-2018", nickname: "chrisJ", country: "NL", role: "igl", teamId: "mouz-2018", teamName: "MOUZ",
@@ -645,6 +666,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2020,
     logoText: "COL",
     accentColor: "#002B49",
+    tags: ["EU", "2020", "US"],
     roster: [
       {
         id: "blamef-2020", nickname: "blameF", country: "DK", role: "igl", teamId: "col-2020", teamName: "Complexity Gaming",
@@ -676,6 +698,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2019,
     logoText: "ENCE",
     accentColor: "#85144b",
+    tags: ["EU", "2019", "FI"],
     roster: [
       {
         id: "aleksib-2019", nickname: "Aleksib", country: "FI", role: "igl", teamId: "ence-2019", teamName: "ENCE",
@@ -707,6 +730,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2022,
     logoText: "HER",
     accentColor: "#EF4444",
+    tags: ["EU", "2022", "DK"],
     roster: [
       {
         id: "cadiaN-2022", nickname: "cadiaN", country: "DK", role: "igl", teamId: "heroic-2022", teamName: "Heroic",
@@ -738,6 +762,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2022,
     logoText: "OUT",
     accentColor: "#F97316",
+    tags: ["CIS", "2022", "RU"],
     roster: [
       {
         id: "jame-2022", nickname: "Jame", country: "RU", role: "igl", teamId: "outsiders-2022", teamName: "Outsiders",
@@ -769,6 +794,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2016,
     logoText: "DIG",
     accentColor: "#FACC15",
+    tags: ["EU", "2016", "DK"],
     roster: [
       {
         id: "msl-2016", nickname: "MSL", country: "DK", role: "igl", teamId: "dignitas-2016", teamName: "Team Dignitas",
@@ -800,6 +826,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2014,
     logoText: "CW",
     accentColor: "#EAB308",
+    tags: ["EU", "2014", "DK"],
     roster: [
       {
         id: "gla1ve-2014", nickname: "gla1ve", country: "DK", role: "igl", teamId: "copenhagen-2014", teamName: "Copenhagen Wolves",
@@ -831,6 +858,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2015,
     logoText: "CLG",
     accentColor: "#00A3E0",
+    tags: ["NA", "2015", "US"],
     roster: [
       {
         id: "tarik-2015", nickname: "tarik", country: "US", role: "entry", teamId: "clg-2015", teamName: "Counter Logic Gaming",
@@ -862,6 +890,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2018,
     logoText: "TYL",
     accentColor: "#DC2626",
+    tags: ["ASIA", "2018", "CN"],
     roster: [
       {
         id: "captainmo-2018", nickname: "CaptainMo", country: "CN", role: "igl", teamId: "tyloo-2018", teamName: "TyLoo",
@@ -893,6 +922,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2024,
     logoText: "MGLZ",
     accentColor: "#B45309",
+    tags: ["ASIA", "2024", "MN"],
     roster: [
       {
         id: "bzking-2024", nickname: "bzking", country: "MN", role: "igl", teamId: "mongolz-2024", teamName: "The MongolZ",
@@ -924,6 +954,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2022,
     logoText: "IMP",
     accentColor: "#10B981",
+    tags: ["SA", "2022", "BR"],
     roster: [
       {
         id: "fallen-2022", nickname: "FalleN", country: "BR", role: "igl", teamId: "imperial-2022", teamName: "Imperial Esports",
@@ -955,6 +986,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2023,
     logoText: "ENCE",
     accentColor: "#85144b",
+    tags: ["EU", "2023", "FI"],
     roster: [
       {
         id: "snappi-2023", nickname: "Snappi", country: "DK", role: "igl", teamId: "ence-2023", teamName: "ENCE",
@@ -986,6 +1018,7 @@ const RAW_CS_DATABASE: RawTeam[] = [
     year: 2017,
     logoText: "AST",
     accentColor: "#EF4444",
+    tags: ["EU", "2017", "DK"],
     roster: [
       {
         id: "gla1ve-2017", nickname: "gla1ve", country: "DK", role: "igl", teamId: "astralis-2017", teamName: "Astralis",

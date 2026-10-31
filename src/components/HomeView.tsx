@@ -271,29 +271,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                     <span className="px-2.5 py-0.5 rounded-md bg-cs-surface border border-cs-border text-cs-muted font-mono text-xs">
                       {activeTeam.shortName}
                     </span>
+                    {activeTeam.tags
+                      ?.filter(tag => tag !== String(activeTeam.year) && tag !== activeTeam.shortName)
+                      .map(tag => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-0.5 rounded-md bg-cs-card border border-cs-border text-cs-text font-mono text-xs"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                   </div>
                   <h4 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
                     {activeTeam.name}
                   </h4>
                 </div>
-              </div>
-
-              {/* Progress Dots for quick jumping */}
-              <div className="flex flex-wrap items-center gap-1.5 max-w-[240px] md:justify-end">
-                {displayTeams.map((tItem, idx) => (
-                  <button
-                    key={tItem.id}
-                    type="button"
-                    onClick={() => handleSelectTeam(idx)}
-                    title={`${tItem.name} (${tItem.year})`}
-                    aria-label={`${tItem.name} (${tItem.year})`}
-                    className={`h-2 rounded-full transition-colors ${
-                      idx === activeIndex
-                        ? 'w-5 bg-cs-accent'
-                        : 'w-2 bg-cs-border hover:bg-cs-muted'
-                    }`}
-                  />
-                ))}
               </div>
             </div>
 

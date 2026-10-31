@@ -28,6 +28,7 @@ export interface HistoricalTeam {
   year: number;           // 2016
   logoText: string;       // "LG"
   accentColor: string;    // "#00A3E0"
+  tags: string[];         // e.g. ["SA", "2019", "BR"]
   roster: Player[];
 }
 
