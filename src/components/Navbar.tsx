@@ -4,14 +4,14 @@ import { useI18n } from '../i18n/I18nContext';
 import { Volume2, VolumeX, Globe, Zap } from 'lucide-react';
 import { sound } from '../utils/sound';
 
-export type NavTab = 'home' | 'draft' | 'guess' | 'bingo' | 'history';
+export type NavTab = 'home' | 'draft' | 'teams' | 'guess' | 'bingo' | 'history';
 
 interface NavbarProps {
   currentTab: NavTab;
   onSelectTab: (tab: NavTab) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onSelectTab }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab }) => {
   const { locale, setLocale, t } = useI18n();
   const [soundEnabled, setSoundEnabled] = React.useState(sound.enabled);
 
@@ -52,6 +52,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectTab }) => {
 
         {/* Global Controls: Audio & Language */}
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => { sound.playClick(); onSelectTab('teams'); }}
+            aria-current={currentTab === 'teams' ? 'page' : undefined}
+            className={`px-3 py-1.5 rounded-lg border text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-cs-accent focus-visible:outline-none active:scale-95 ${
+              currentTab === 'teams'
+                ? 'bg-cs-card border-cs-accent text-white'
+                : 'bg-cs-surface border-cs-border text-cs-text hover:bg-cs-card hover:text-white'
+            }`}
+          >
+            {t('nav.teams')}
+          </button>
           <button
             type="button"
             onClick={toggleSound}

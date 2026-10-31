@@ -1,0 +1,13 @@
+{
+  "scanned": "2026-10-31",
+  "findings": {
+    "fonts": "Archivo + Inter + JetBrains Mono (src/index.css L2, tailwind.config.js L29-L33)",
+    "palette": "Esports dark system tokens (--bg-page, --surface-panel, --surface-card, --color-legend, cs.* in tailwind.config.js L10-L27)",
+    "motion": "CSS keyframes and Tailwind transitions (src/index.css L85-L126)",
+    "spacing": "Tailwind 4pt scale (tailwind.config.js)",
+    "framework": "React 19 + Vite 8 + TypeScript + Tailwind CSS 3"
+  },
+  "preserve": ["font stack", "palette", "spacing scale", "existing Navbar and App shell"],
+  "introduce": ["shape: app screen", "TeamsView directory and roster inspector", "URL-synced tag/region/search filters", "Hallmark Floor gates"]
+}
+

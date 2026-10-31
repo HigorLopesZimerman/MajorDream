@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { I18nProvider } from './i18n/I18nContext';
 import { Navbar, NavTab } from './components/Navbar';
 import { HomeView } from './components/HomeView';
+import { TeamsView } from './components/TeamsView';
 import { DraftFlow } from './components/DraftFlow';
 import { MapAdvantage } from './components/MapAdvantage';
 import { SimulationCampaign } from './components/SimulationCampaign';
@@ -106,6 +107,8 @@ export const AppContent: React.FC = () => {
             onNavigate={setCurrentTab}
           />
         )}
+
+        {currentTab === 'teams' && <TeamsView />}
 
         {currentTab === 'draft' && (
           <>
