@@ -704,19 +704,20 @@ export function simulateCompetitiveMap(
     const roleBonus =
       role === 'awp' || role === 'entry' ? 0.04 :
       role === 'rifler' || role === 'lurker' ? 0.02 :
-      role === 'igl' ? -0.03 : -0.02;
+      role === 'igl' ? -0.04 : -0.03;
 
-    // OVR offset centered around 88 (e.g. 96 OVR -> +0.10, 82 OVR -> -0.08)
-    const skillOffset = (ovr - 88) * 0.012 + roleBonus;
+    // OVR offset centered around 89 (e.g. 97 OVR -> +0.13, 83 OVR -> -0.10)
+    const skillOffset = (ovr - 89) * 0.016 + roleBonus;
 
-    // Base round rating centered around HLTV 2.0 reference (1.06 average)
-    const base = (wonRound ? 1.26 : 0.82) + skillOffset;
+    // Calibrated round rating so tournament averages match realistic HLTV 2.0 scale:
+    // 1.00-1.04 Regular | 1.05-1.09 Bom | 1.10-1.19 Muito bom | 1.20-1.29 Excelente | 1.30-1.39 Elite | 1.40-1.49 Histórico | 1.50+ Fora da curva
+    const base = (wonRound ? 1.13 : 0.90) + skillOffset;
 
-    // Bell-shaped swing using two random samples (-0.75 to +0.75) + rare pop-off round (multi-kill/clutch)
-    const bellSwing = ((r1 + r2) / 2 - 0.5) * 1.5;
-    const popOff = r1 > 0.90 && wonRound ? (r1 - 0.90) * 4.5 : 0;
+    // Bell-shaped swing using two random samples (-0.42 to +0.42) + rare pop-off round (multi-kill/clutch)
+    const bellSwing = ((r1 + r2) / 2 - 0.5) * 0.85;
+    const popOff = r1 > 0.93 && wonRound ? (r1 - 0.93) * 2.2 : 0;
 
-    const raw = Math.min(2.65, Math.max(0.20, base + bellSwing + popOff));
+    const raw = Math.min(2.35, Math.max(0.35, base + bellSwing + popOff));
     return Math.round(raw * 100) / 100;
   };
 

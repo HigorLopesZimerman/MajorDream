@@ -40,15 +40,15 @@ const ROUND_DELAY_MS: Record<Exclude<RoundSpeed, 'instant'>, number> = {
 
 function getHltvRatingMeta(rating?: number): { color: string; label: string } {
   if (rating === undefined) return { color: 'text-cs-muted', label: 'Sem dados ainda' };
-  if (rating >= 2.00) return { color: 'text-cs-accent', label: 'Desempenho extraordinário (2.00+)' };
-  if (rating >= 1.60) return { color: 'text-cs-accent', label: 'Partida excepcional (1.60–1.99)' };
-  if (rating >= 1.40) return { color: 'text-cs-accent', label: 'Excelente partida (1.40–1.59)' };
-  if (rating >= 1.20) return { color: 'text-cs-green', label: 'Partida muito boa (1.20–1.39)' };
-  if (rating >= 1.10) return { color: 'text-cs-green', label: 'Boa partida (1.10–1.19)' };
-  if (rating >= 1.00) return { color: 'text-white', label: 'Próximo da média (1.00–1.09)' };
-  if (rating >= 0.90) return { color: 'text-cs-muted', label: 'Um pouco abaixo da média (0.90–0.99)' };
-  if (rating >= 0.70) return { color: 'text-cs-red', label: 'Partida ruim (0.70–0.89)' };
-  return { color: 'text-cs-red', label: 'Muito abaixo do esperado (<0.70)' };
+  if (rating >= 1.50) return { color: 'text-cs-accent', label: 'Fora da curva (1.50+)' };
+  if (rating >= 1.40) return { color: 'text-cs-accent', label: 'Histórico (1.40–1.49)' };
+  if (rating >= 1.30) return { color: 'text-cs-accent', label: 'Elite (1.30–1.39)' };
+  if (rating >= 1.20) return { color: 'text-cs-green', label: 'Excelente (1.20–1.29)' };
+  if (rating >= 1.10) return { color: 'text-cs-green', label: 'Muito bom (1.10–1.19)' };
+  if (rating >= 1.05) return { color: 'text-cs-blue', label: 'Bom (1.05–1.09)' };
+  if (rating >= 1.00) return { color: 'text-white', label: 'Regular (1.00–1.04)' };
+  if (rating >= 0.90) return { color: 'text-cs-muted', label: 'Abaixo da média (0.90–0.99)' };
+  return { color: 'text-cs-red', label: 'Ruim (<0.90)' };
 }
 
 export const MatchSimulationView: React.FC<MatchSimulationViewProps> = ({
