@@ -14,9 +14,11 @@ describe('Local Image Asset Resolution Tests', () => {
     expect(simple.url).toBe('/images/navi-2021/s1mple.webp');
   });
 
-  it('resolves local team logo candidates inside /images/<teamId>/logo.(webp|png)', () => {
+  it('resolves shared logos inside /images/logos/<org>.(svg|webp|png) and falls back to /images/<teamId>/logo.(webp|png)', () => {
     const logos = getTeamLogoCandidates('astralis-2018');
-    expect(logos[0]).toBe('/images/astralis-2018/logo.webp');
+    expect(logos[0]).toBe('/images/logos/astralis.svg');
+    expect(logos).toContain('/images/logos/astralis.webp');
+    expect(logos).toContain('/images/astralis-2018/logo.webp');
     expect(logos).toContain('/images/astralis-2018/logo.png');
   });
 
