@@ -1,6 +1,7 @@
 /* Hallmark · redesign: full · keep handlers, wiring, i18n copy · esports dark system */
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../i18n/I18nContext';
+import { TranslationKey } from '../i18n/translations';
 import { Trophy, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { sound } from '../utils/sound';
 import { NavTab } from './Navbar';
@@ -15,13 +16,13 @@ interface HomeViewProps {
   onNavigate: (tab: NavTab) => void;
 }
 
-const roleBadgeConfig: Record<string, { label: string; fullName: string; bg: string }> = {
-  igl: { label: 'IGL', fullName: 'In-Game Leader', bg: 'bg-blue-700' },
-  awp: { label: 'AWP', fullName: 'AWPer Principal', bg: 'bg-violet-700' },
-  entry: { label: 'ENT', fullName: 'Entry Fragger', bg: 'bg-red-700' },
-  rifler: { label: 'RIF', fullName: 'Star Rifler', bg: 'bg-amber-700' },
-  lurker: { label: 'LURK', fullName: 'Lurker', bg: 'bg-teal-700' },
-  support: { label: 'SUP', fullName: 'Support / Anchor', bg: 'bg-indigo-700' }
+const roleBadgeConfig: Record<string, { label: string; fullNameKey: TranslationKey; bg: string }> = {
+  igl: { label: 'IGL', fullNameKey: 'role.igl', bg: 'bg-blue-700' },
+  awp: { label: 'AWP', fullNameKey: 'role.awp', bg: 'bg-violet-700' },
+  entry: { label: 'ENT', fullNameKey: 'role.entry', bg: 'bg-red-700' },
+  rifler: { label: 'RIF', fullNameKey: 'role.rifler', bg: 'bg-amber-700' },
+  lurker: { label: 'LURK', fullNameKey: 'role.lurker', bg: 'bg-teal-700' },
+  support: { label: 'SUP', fullNameKey: 'role.support', bg: 'bg-indigo-700' }
 };
 
 export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
@@ -115,11 +116,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
   };
 
   const focusedRoleBadge = focusedPlayer
-    ? roleBadgeConfig[focusedPlayer.role] || {
-        label: focusedPlayer.role.toUpperCase(),
-        fullName: focusedPlayer.role.toUpperCase(),
-        bg: 'bg-amber-700'
-      }
+    ? roleBadgeConfig[focusedPlayer.role]
+      ? {
+          label: roleBadgeConfig[focusedPlayer.role].label,
+          fullName: t(roleBadgeConfig[focusedPlayer.role].fullNameKey),
+          bg: roleBadgeConfig[focusedPlayer.role].bg
+        }
+      : {
+          label: focusedPlayer.role.toUpperCase(),
+          fullName: focusedPlayer.role.toUpperCase(),
+          bg: 'bg-amber-700'
+        }
     : null;
 
   return (
@@ -184,7 +191,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                 {t('home.teamsTitle')}
               </h3>
               <p className="text-xs text-cs-muted">
-                Passe o mouse ou clique em um jogador ao lado para ampliar o card em destaque
+                {t('home.teamsSubtitle')}
               </p>
             </div>
           </div>
@@ -199,8 +206,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                 sound.playClick();
                 setIsAutoCycling(prev => !prev);
               }}
-              aria-label={isAutoCycling ? 'Pausar rotação automática' : 'Retomar rotação automática'}
-              title={isAutoCycling ? 'Pausar rotação automática' : 'Retomar rotação automática'}
+              aria-label={isAutoCycling ? t('home.pauseAutoCycle') : t('home.resumeAutoCycle')}
+              title={isAutoCycling ? t('home.pauseAutoCycle') : t('home.resumeAutoCycle')}
               className="p-2 rounded-lg bg-cs-card hover:bg-cs-hover active:scale-95 border border-cs-border text-cs-text hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-cs-accent focus-visible:outline-none"
             >
               {isAutoCycling ? <Pause className="w-4 h-4 text-cs-accent" /> : <Play className="w-4 h-4 text-cs-muted" />}
@@ -208,7 +215,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
             <button
               type="button"
               onClick={handlePrevTeam}
-              aria-label="Equipe anterior"
+              aria-label={t('home.prevTeam')}
               className="p-2 rounded-lg bg-cs-card hover:bg-cs-hover active:scale-95 border border-cs-border text-cs-text hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-cs-accent focus-visible:outline-none"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -216,7 +223,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
             <button
               type="button"
               onClick={handleNextTeam}
-              aria-label="Próxima equipe"
+              aria-label={t('home.nextTeam')}
               className="p-2 rounded-lg bg-cs-card hover:bg-cs-hover active:scale-95 border border-cs-border text-cs-text hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-cs-accent focus-visible:outline-none"
             >
               <ChevronRight className="w-4 h-4" />
@@ -372,13 +379,13 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                     <div className="grid grid-cols-7 gap-1.5">
                       {(
                         [
-                          { key: 'AIM', title: 'Mira (Aim)', val: focusedPlayer.attributes.aim },
-                          { key: 'IMP', title: 'Impacto', val: focusedPlayer.attributes.imp },
-                          { key: 'CLU', title: 'Clutch', val: focusedPlayer.attributes.clu },
-                          { key: 'CON', title: 'Consistência', val: focusedPlayer.attributes.con },
-                          { key: 'GS', title: 'Game Sense', val: focusedPlayer.attributes.gs },
-                          { key: 'UTI', title: 'Utilitários (Utility)', val: focusedPlayer.attributes.uti },
-                          { key: 'MOV', title: 'Movimentação (Movement)', val: focusedPlayer.attributes.mov }
+                          { key: 'AIM', title: t('stat.aim'), val: focusedPlayer.attributes.aim },
+                          { key: 'IMP', title: t('stat.imp'), val: focusedPlayer.attributes.imp },
+                          { key: 'CLU', title: t('stat.clu'), val: focusedPlayer.attributes.clu },
+                          { key: 'CON', title: t('stat.con'), val: focusedPlayer.attributes.con },
+                          { key: 'GS', title: t('stat.gs'), val: focusedPlayer.attributes.gs },
+                          { key: 'UTI', title: t('stat.uti'), val: focusedPlayer.attributes.uti },
+                          { key: 'MOV', title: t('stat.mov'), val: focusedPlayer.attributes.mov }
                         ] as const
                       ).map(stat => {
                         const valColor =
@@ -404,13 +411,13 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
                       })}
                     </div>
                     <div className="mt-2.5 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[10px] text-cs-muted">
-                      <span>AIM: Mira</span>
-                      <span>IMP: Impacto</span>
-                      <span>CLU: Clutch</span>
-                      <span>CON: Consistência</span>
-                      <span>GS: Game Sense</span>
-                      <span>UTI: Utilitários</span>
-                      <span>MOV: Movimentação</span>
+                      <span>AIM: {t('stat.aim')}</span>
+                      <span>IMP: {t('stat.imp')}</span>
+                      <span>CLU: {t('stat.clu')}</span>
+                      <span>CON: {t('stat.con')}</span>
+                      <span>GS: {t('stat.gs')}</span>
+                      <span>UTI: {t('stat.uti')}</span>
+                      <span>MOV: {t('stat.mov')}</span>
                     </div>
                   </div>
                 </div>
@@ -419,11 +426,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ onStartDraft }) => {
               {/* Right Side: 5-Player Formation Selector (2 + 2 + 1 centered) */}
               <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-6 gap-3.5 content-center">
                 {activeTeam.roster.map((player, pIdx) => {
-                  const roleBadge = roleBadgeConfig[player.role] || {
-                    label: player.role.toUpperCase(),
-                    fullName: player.role.toUpperCase(),
-                    bg: 'bg-amber-700'
-                  };
+                  const roleBadge = roleBadgeConfig[player.role]
+                    ? {
+                        label: roleBadgeConfig[player.role].label,
+                        fullName: t(roleBadgeConfig[player.role].fullNameKey),
+                        bg: roleBadgeConfig[player.role].bg
+                      }
+                    : {
+                        label: player.role.toUpperCase(),
+                        fullName: player.role.toUpperCase(),
+                        bg: 'bg-amber-700'
+                      };
                   const isFocused = pIdx === focusedPlayerIndex;
                   // 2 cards on top row, 2 cards on middle row, 5th card centered on bottom row
                   const formationSpan =
