@@ -1,7 +1,17 @@
 # Guia de Imagens dos Times e Players
 
 ## 1. Pasta Central de Logos (`public/images/logos/`)
-Para evitar duplicar logos de organizações que aparecem em vários anos (como Astralis, NAVI, ENCE, FURIA, etc.), coloque as logos diretamente dentro de `public/images/logos/` com o nome da organização (aceita `.svg`, `.webp`, `.png` ou `.jpg`):
+Para evitar duplicar logos de organizações que aparecem em vários anos, coloque as logos dentro de `public/images/logos/` usando um dos 3 padrões abaixo (aceita `.svg`, `.webp`, `.png` ou `.jpg`):
+
+1. **Mesma logo em todos os anos (`<time>.<ext>`):**
+   - Ex: `furia.svg`, `astralis.webp`, `sk.svg`
+2. **Logo usada em um intervalo de anos (`<time><anoInicio>-<anoFim>.<ext>`):**
+   - Ex: `navi2010-2020.svg`, `vp2014-2018.webp`, `mouz2016-2021.png`
+   - *(O sistema verifica automaticamente se o ano da equipe está entre `anoInicio` e `anoFim` inclusive!)*
+3. **Logo exclusiva de um único ano (`<time><ano>.<ext>`):**
+   - Ex: `furia2019.svg`, `vitality2023.webp`
+
+### Nomes base das equipes aceitos:
 
 - `public/images/logos/furia.svg` (ou `.webp` / `.png`)
 - `public/images/logos/lg.svg`

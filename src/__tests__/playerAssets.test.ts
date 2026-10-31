@@ -14,12 +14,21 @@ describe('Local Image Asset Resolution Tests', () => {
     expect(simple.url).toBe('/images/navi-2021/s1mple.webp');
   });
 
-  it('resolves shared logos inside /images/logos/<org>.(svg|webp|png) and falls back to /images/<teamId>/logo.(webp|png)', () => {
-    const logos = getTeamLogoCandidates('astralis-2018');
-    expect(logos[0]).toBe('/images/logos/astralis.svg');
-    expect(logos).toContain('/images/logos/astralis.webp');
-    expect(logos).toContain('/images/astralis-2018/logo.webp');
-    expect(logos).toContain('/images/astralis-2018/logo.png');
+  it('resolves single-year, year-range, and timeless org logos inside /images/logos/', () => {
+    // 1. Timeless org logo (e.g. furia.svg)
+    const furiaLogos = getTeamLogoCandidates('furia-2019', ['furia.svg']);
+    expect(furiaLogos[0]).toBe('/images/logos/furia.svg');
+
+    // 2. Year-range logo (e.g. navi2018-2022.webp matches navi-2021, but not navi-2024)
+    const navi2021Logos = getTeamLogoCandidates('navi-2021', ['navi2018-2022.webp', 'navi.svg']);
+    expect(navi2021Logos[0]).toBe('/images/logos/navi2018-2022.webp');
+
+    const navi2024Logos = getTeamLogoCandidates('navi-2024', ['navi2018-2022.webp', 'navi.svg']);
+    expect(navi2024Logos[0]).toBe('/images/logos/navi.svg');
+
+    // 3. Single-year logo takes highest priority over range and timeless (e.g. furia2019.webp)
+    const furiaSpecific = getTeamLogoCandidates('furia-2019', ['furia.svg', 'furia2018-2021.svg', 'furia2019.webp']);
+    expect(furiaSpecific[0]).toBe('/images/logos/furia2019.webp');
   });
 
   it('returns neutral initials avatar when player has no team association', () => {
